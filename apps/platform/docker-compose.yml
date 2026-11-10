@@ -1,13 +1,21 @@
 services:
     laravel.test:
-        image: laravelsail/php84-composer:latest
+        build:
+            context: ./vendor/laravel/sail/runtimes/8.4
+            dockerfile: Dockerfile
+            args:
+                WWWGROUP: '${WWWGROUP:-1000}'
+        image: sail-8.4/app
+        extra_hosts:
+            - 'host.docker.internal:host-gateway'
         working_dir: /var/www/html
-        command: php artisan serve --host=0.0.0.0 --port=80
+        command: /usr/bin/php -d variables_order=EGPCS /var/www/html/artisan serve --host=0.0.0.0 --port=80
         ports:
             - '${APP_PORT:-8000}:80'
         environment:
             WWWGROUP: '${WWWGROUP:-1000}'
             WWWUSER: '${WWWUSER:-1000}'
+            LARAVEL_SAIL: 1
         volumes:
             - '.:/var/www/html'
         depends_on:
@@ -25,8 +33,12 @@ services:
             MYSQL_DATABASE: '${DB_DATABASE:-platform}'
             MYSQL_USER: '${DB_USERNAME:-sail}'
             MYSQL_PASSWORD: '${DB_PASSWORD:-password}'
+            MYSQL_TEST_DATABASE: '${DB_TEST_DATABASE:-testing}'
+            MYSQL_TEST_USER: '${DB_TEST_USERNAME:-sail_test}'
+            MYSQL_TEST_PASSWORD: '${DB_TEST_PASSWORD:-password}'
         volumes:
             - 'sail-mysql:/var/lib/mysql'
+            - '../../infra/local/mysql-init:/docker-entrypoint-initdb.d:ro'
         healthcheck:
             test: ['CMD', 'mysqladmin', 'ping', '-p${DB_ROOT_PASSWORD:-root}']
             retries: 10

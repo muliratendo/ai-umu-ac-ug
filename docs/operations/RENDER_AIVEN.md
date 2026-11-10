@@ -10,3 +10,6 @@ Aiven must be verified for the selected MySQL version, region, plan, allowlist, 
 certificate-verified TLS procedure. Use least-privilege runtime credentials and
 separate migration privileges. No resources, DNS, credentials, or production
 migrations were created.
+
+The local Compose `artisan serve` process is development-only and is not a Render
+runtime. No Render or Aiven workflow is included in this pass.

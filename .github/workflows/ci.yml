@@ -1,0 +1,94 @@
+name: Foundation checks
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+defaults:
+  run:
+    working-directory: apps/platform
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:8.4
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: platform
+          MYSQL_USER: sail
+          MYSQL_PASSWORD: password
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping -h 127.0.0.1 -uroot -proot"
+          --health-interval=5s
+          --health-timeout=5s
+          --health-retries=20
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          extensions: pdo_mysql
+          coverage: none
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install Composer dependencies
+        run: composer install --no-interaction --prefer-dist --no-progress
+
+      - name: Validate Composer manifest
+        run: composer validate --strict
+
+      - name: Check platform requirements
+        run: composer check-platform-reqs
+
+      - name: Create isolated test database
+        working-directory: .
+        run: |
+          mysql --protocol=tcp --host=127.0.0.1 --user=root --password=root <<'SQL'
+          CREATE DATABASE IF NOT EXISTS testing;
+          CREATE USER IF NOT EXISTS 'sail_test'@'%' IDENTIFIED BY 'password';
+          GRANT ALL PRIVILEGES ON `testing`.* TO 'sail_test'@'%';
+          FLUSH PRIVILEGES;
+          SQL
+
+      - name: Prepare test application
+        run: |
+          cp .env.example .env
+          php artisan key:generate --force
+
+      - name: Install npm dependencies
+        run: npm ci
+
+      - name: Typecheck frontend
+        run: npm run typecheck
+
+      - name: Test frontend
+        run: npm run test
+
+      - name: Test PHP application
+        run: php artisan test
+
+      - name: Build frontend
+        run: npm run build
+
+      - name: Verify frontend manifest
+        run: |
+          test -f public/build/manifest.json
+          grep -q 'resources/js/app.jsx' public/build/manifest.json
+
+      - name: Check diff hygiene
+        working-directory: .
+        run: git diff --check

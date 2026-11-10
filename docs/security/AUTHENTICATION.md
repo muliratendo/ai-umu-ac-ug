@@ -10,3 +10,7 @@ account allowlisting, session regeneration, replay/cancellation/outage handling,
 and local logout. The `hd` request value and email suffix must not authorize access
 or roles. Privileged roles require independent approval. Tokens must not be logged
 or retained unnecessarily.
+
+No authentication, registration, password-reset, or Google callback routes are
+registered in this foundation. Twill is installed but package discovery and its
+routes are disabled.

@@ -8,3 +8,8 @@ safe JSON health output, and a narrow public route inventory.
 Before launch, review CSRF/session settings, trusted proxies, authorization policy,
 provider outage/replay behavior, object-storage boundaries, rate limits, logging,
 and dependency advisories.
+
+The local MySQL test database is explicitly named `testing`, uses the `sail_test`
+credential, and is guarded before Laravel's refresh/migration trait runs. CI creates
+the same disposable database and credential; neither test path is permitted to fall
+back to SQLite.

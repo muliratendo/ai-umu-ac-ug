@@ -1,5 +1,6 @@
 import { Link } from '@inertiajs/react';
 
+/** @param {{children: import('react').ReactNode}} props */
 export default function Layout({ children }) {
     return (
         <div className="site-shell">
@@ -15,7 +16,7 @@ export default function Layout({ children }) {
                     </nav>
                 </div>
             </header>
-            <main id="main-content" tabIndex="-1">{children}</main>
+            <main id="main-content" tabIndex={-1}>{children}</main>
             <footer className="site-footer">
                 <div className="container">
                     <p>AI learning, research, policy, and responsible innovation at Uganda Martyrs University.</p>

@@ -5,6 +5,7 @@ import Layout from './Components/Layout';
 
 createInertiaApp({
     resolve: (name) => {
+        /** @type {Record<string, {default: import('react').ComponentType}>} */
         const pages = import.meta.glob('./Pages/**/*.jsx', { eager: true });
         const page = pages[`./Pages/${name}.jsx`];
 

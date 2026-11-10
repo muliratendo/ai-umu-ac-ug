@@ -6,6 +6,7 @@ The application lives in [`apps/platform`](apps/platform). Local development use
 PHP 8.4, MySQL 8.4, Laravel Sail, React 19.3, and Inertia 3. See
 [`docs/setup/LOCAL_DEVELOPMENT.md`](docs/setup/LOCAL_DEVELOPMENT.md).
 
-Implemented: public home, community page, accessible shared layout, safe 404, and
-health endpoint. Google SSO, Twill administration, membership, newsletter delivery,
-and AI are deliberately deferred.
+Implemented: public home, community page, accessible shared layout, safe 404, health
+endpoint, isolated MySQL integration coverage, JSX typechecking, component tests,
+and CI configuration. Google SSO, Twill administration, membership, newsletter
+delivery, and AI are deliberately deferred.
