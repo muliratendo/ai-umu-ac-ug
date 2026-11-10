@@ -1,0 +1,44 @@
+services:
+    laravel.test:
+        image: laravelsail/php84-composer:latest
+        working_dir: /var/www/html
+        command: php artisan serve --host=0.0.0.0 --port=80
+        ports:
+            - '${APP_PORT:-8000}:80'
+        environment:
+            WWWGROUP: '${WWWGROUP:-1000}'
+            WWWUSER: '${WWWUSER:-1000}'
+        volumes:
+            - '.:/var/www/html'
+        depends_on:
+            mysql:
+                condition: service_healthy
+        networks:
+            - sail
+
+    mysql:
+        image: mysql:8.4
+        ports:
+            - '127.0.0.1:${FORWARD_DB_PORT:-3306}:3306'
+        environment:
+            MYSQL_ROOT_PASSWORD: '${DB_ROOT_PASSWORD:-root}'
+            MYSQL_DATABASE: '${DB_DATABASE:-platform}'
+            MYSQL_USER: '${DB_USERNAME:-sail}'
+            MYSQL_PASSWORD: '${DB_PASSWORD:-password}'
+        volumes:
+            - 'sail-mysql:/var/lib/mysql'
+        healthcheck:
+            test: ['CMD', 'mysqladmin', 'ping', '-p${DB_ROOT_PASSWORD:-root}']
+            retries: 10
+            timeout: 5s
+            interval: 5s
+        networks:
+            - sail
+
+networks:
+    sail:
+        driver: bridge
+
+volumes:
+    sail-mysql:
+        driver: local
