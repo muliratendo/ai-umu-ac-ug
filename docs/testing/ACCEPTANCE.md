@@ -79,3 +79,8 @@ State-validation coverage uses the real Socialite provider (no fake) for the
 missing/invalid/replay cases, not only a mocked happy path.  Live
 OAuth/browser verification is pending external credentials and callback
 registration.
+
+SSO tests that render an Inertia page (e.g. the authenticated `/account`
+response and the home-page secrecy check) must use `withoutAssets()` and pass
+without `public/build` or `public/hot`.  Redirect and JSON-only assertions do
+not need the helper.

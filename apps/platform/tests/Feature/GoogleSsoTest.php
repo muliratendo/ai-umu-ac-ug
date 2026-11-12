@@ -115,7 +115,7 @@ class GoogleSsoTest extends TestCase
         $this->assertAuthenticated();
         $this->assertDatabaseHas('google_identities', ['provider' => 'google', 'subject' => 'subject-1']);
         $this->assertDatabaseHas('sso_invitations', ['email' => 'invited@example.test']);
-        $this->get('/account')->assertOk()->assertInertia(fn ($page) => $page->component('Account', false));
+        $this->withoutAssets()->get('/account')->assertOk()->assertInertia(fn ($page) => $page->component('Account', false));
     }
 
     public function test_repeat_login_uses_bound_subject_not_email_matching(): void
@@ -252,7 +252,7 @@ class GoogleSsoTest extends TestCase
 
     public function test_secrets_are_not_disclosed_in_responses(): void
     {
-        $this->get('/')->assertDontSee('client-secret');
+        $this->withoutAssets()->get('/')->assertOk()->assertDontSee('client-secret');
 
         $this->get('/health')->assertExactJson(['status' => 'ok']);
 
