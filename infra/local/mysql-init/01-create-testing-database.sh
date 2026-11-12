@@ -33,13 +33,21 @@ if [[ "${MYSQL_INIT_VALIDATE_ONLY:-0}" == '1' ]]; then
     exit 0
 fi
 
-# Encode the password as a MySQL hexadecimal string instead of interpolating it
-# into a quoted SQL string. This safely supports quotes, semicolons, and dollars.
-password_hex=$(printf '%s' "$MYSQL_TEST_PASSWORD" | od -An -tx1 | tr -d '[:space:]')
+mysql_args=(--protocol=socket --user=root)
+if [[ -n "${MYSQL_INIT_MYSQL_HOST:-}" ]]; then
+    mysql_args=(--protocol=tcp --host="$MYSQL_INIT_MYSQL_HOST" --port="${MYSQL_INIT_MYSQL_PORT:-3306}" --user=root)
+fi
 
-MYSQL_PWD="$MYSQL_ROOT_PASSWORD" mysql --protocol=socket --user=root <<-EOSQL
+# CREATE USER accepts a cleartext string with IDENTIFIED BY. Escape the two
+# characters that are special in a MySQL string literal; NO_BACKSLASH_ESCAPES
+# is removed for this session so backslashes retain their usual meaning.
+password_sql=${MYSQL_TEST_PASSWORD//\\/\\\\}
+password_sql=${password_sql//\'/\'\'}
+
+MYSQL_PWD="$MYSQL_ROOT_PASSWORD" mysql "${mysql_args[@]}" <<-EOSQL
+    SET SESSION sql_mode = REPLACE(@@SESSION.sql_mode, 'NO_BACKSLASH_ESCAPES', '');
     CREATE DATABASE IF NOT EXISTS \`$MYSQL_TEST_DATABASE\`;
-    CREATE USER IF NOT EXISTS '$MYSQL_TEST_USER'@'%' IDENTIFIED BY 0x$password_hex;
+    CREATE USER IF NOT EXISTS '$MYSQL_TEST_USER'@'%' IDENTIFIED BY '$password_sql';
     GRANT ALL PRIVILEGES ON \`$MYSQL_TEST_DATABASE\`.* TO '$MYSQL_TEST_USER'@'%';
     FLUSH PRIVILEGES;
 EOSQL

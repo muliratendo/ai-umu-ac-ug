@@ -54,15 +54,12 @@ jobs:
       - name: Check platform requirements
         run: composer check-platform-reqs
 
-      - name: Create isolated test database
+      - name: Execute isolated MySQL initialization checks
         working-directory: .
-        run: |
-          mysql --protocol=tcp --host=127.0.0.1 --user=root --password=root <<'SQL'
-          CREATE DATABASE IF NOT EXISTS testing;
-          CREATE USER IF NOT EXISTS 'sail_test'@'%' IDENTIFIED BY 'password';
-          GRANT ALL PRIVILEGES ON `testing`.* TO 'sail_test'@'%';
-          FLUSH PRIVILEGES;
-          SQL
+        env:
+          MYSQL_INIT_MYSQL_HOST: 127.0.0.1
+          MYSQL_INIT_MYSQL_PORT: 3306
+        run: tests/infra/mysql-init-regression.sh
 
       - name: Prepare test application
         run: |

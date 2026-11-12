@@ -9,7 +9,7 @@ composer validate --strict
 composer check-platform-reqs
 composer install --no-interaction --prefer-dist --no-progress
 npm ci
-tests/infra/mysql-init-regression.sh
+../../tests/infra/mysql-init-regression.sh
 docker compose config -q
 npm run typecheck
 npm run test
@@ -35,6 +35,10 @@ stubbed while the Inertia middleware remains active. Run the backend suite once 
 `public/build` present and once with that directory safely moved aside and restored
 with a shell trap; never delete existing build artifacts.
 
-The frontend tests cover community units, accessible navigation and skip links,
-deferred-feature messaging, and an axe smoke check. CI configuration exists, but no
-CI run is claimed here without an actual recorded CI result.
+The initialization regression script first checks unsafe targets without SQL, then
+executes the real initialization script against MySQL 8.4 and verifies login to
+`testing`, access to `testing`, and denial of the separate `platform` database. CI
+runs the same script against its disposable MySQL service. The frontend tests cover
+community units, accessible navigation and skip links, deferred-feature messaging,
+and an axe smoke check. No CI run is claimed here without an actual recorded CI
+result.
