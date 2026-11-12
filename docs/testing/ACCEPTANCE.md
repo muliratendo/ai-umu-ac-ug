@@ -46,6 +46,36 @@ with a shell trap; never delete existing build artifacts.
 The initialization regression first checks unsafe targets without SQL, then executes
 real initialization SQL and verifies ordinary and SQL-significant password login,
 access to `testing`, and denial of the separate `platform` database. Keep this
-separate from normal application tests. The frontend tests cover community units,
-accessible navigation and skip links, deferred-feature messaging, and an axe smoke
-check. No CI run is claimed here without an actual recorded CI result.
+separate from normal application tests. The frontend tests cover community units, accessible navigation and skip links,
+deferred-feature messaging, sign-in visibility, account display, failure-state
+flash notices, logout, and axe smoke checks.  No CI run is claimed here without
+an actual recorded CI result.
+
+## Google SSO acceptance
+
+The PHP suite (`GoogleSsoTest`) mocks the provider with `Socialite::fake` and
+the `SocialiteUser::fake` helper.  No live Google credentials or requests are
+used in CI.  Covered scenarios:
+
+- Public pages remain anonymous-accessible.
+- SSO disabled by default: initiation/callback return 404; sign-in UI hidden.
+- Explicitly enabled SSO: initiation redirects to Google with state.
+- Valid approved first login creates user + identity + redemption.
+- Repeat login uses bound subject, not email matching.
+- Unapproved, unverified, and email-collision identities are rejected.
+- Invitation cannot be redeemed twice by different subjects.
+- No privileged status (role/is_admin) is created on login.
+- Missing, invalid, expired/replayed state rejected without provider contact.
+- Cancellation and provider failure return safe generic messages.
+- No open redirect on login (always `/account`).
+- Session ID regenerated on login; POST-only logout invalidates session.
+- Unauthenticated `/account` redirects home.
+- Revoked approval blocks re-login and existing protected access.
+- Secrets not disclosed in shared props, health, or redirect URLs.
+- Twill/admin/password-registration/AI routes remain unavailable
+  (`DisabledRoutesTest`).
+
+State-validation coverage uses the real Socialite provider (no fake) for the
+missing/invalid/replay cases, not only a mocked happy path.  Live
+OAuth/browser verification is pending external credentials and callback
+registration.

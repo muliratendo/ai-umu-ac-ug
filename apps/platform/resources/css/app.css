@@ -7,14 +7,18 @@ body { margin: 0; line-height: 1.6; }
 .site-header { background: #073b4c; color: white; }
 .header-inner { min-height: 4.5rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
 .brand { color: white; font-weight: 700; text-decoration: none; }
-nav { display: flex; gap: 1rem; }
+nav { display: flex; gap: 1rem; align-items: center; }
 .nav-link { color: white; text-underline-offset: .25rem; }
+.nav-button { border: 0; background: transparent; font: inherit; cursor: pointer; }
+.notice { margin-block: 1rem; padding: .75rem 1rem; border-left: .3rem solid; }
+.notice-error { border-color: #b91c1c; background: #fee2e2; }
+.notice-success { border-color: #15803d; background: #dcfce7; }
 .hero { padding-block: clamp(4rem, 12vw, 8rem); }
 .hero h1, .content-section h1 { max-width: 14ch; font-size: clamp(2.4rem, 6vw, 5rem); line-height: 1.05; margin-block: .5rem 1.5rem; }
 .lede { font-size: 1.25rem; max-width: 50ch; }
 .eyebrow { color: #0f766e; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
 .button { display: inline-block; margin-top: 1rem; padding: .7rem 1rem; border-radius: .35rem; background: #0f766e; color: white; font-weight: 700; text-decoration: none; }
-.button:focus-visible, a:focus-visible { outline: .2rem solid #f59e0b; outline-offset: .2rem; }
+.button:focus-visible, a:focus-visible, button:focus-visible { outline: .2rem solid #f59e0b; outline-offset: .2rem; }
 .content-section { padding-block: 4rem 6rem; }
 .unit-list { display: grid; gap: 1rem; padding: 0; list-style: none; max-width: 42rem; }
 .unit-list li { padding: 1rem; border-left: .3rem solid #0f766e; background: white; box-shadow: 0 1px 3px #17304220; }

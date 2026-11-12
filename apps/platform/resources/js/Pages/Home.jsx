@@ -13,7 +13,7 @@ export default function Home() {
             </section>
             <section className="container content-section" aria-labelledby="status-heading">
                 <h2 id="status-heading">Foundation status</h2>
-                <p>This initial foundation provides public information pages. News, events, membership, Google sign-in, editorial administration, and AI capabilities are planned and not available yet.</p>
+                <p>This initial foundation provides public information pages and invite-only basic account access. Membership, editorial administration, and AI capabilities are planned and not available yet.</p>
             </section>
         </Layout>
     );

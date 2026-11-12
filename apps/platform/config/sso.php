@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'enabled' => (bool) env('SSO_ENABLED', false),
     'client_id' => env('GOOGLE_CLIENT_ID'),
     'client_secret' => env('GOOGLE_CLIENT_SECRET'),
     'redirect_uri' => env('GOOGLE_REDIRECT_URI'),

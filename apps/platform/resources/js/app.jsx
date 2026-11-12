@@ -4,6 +4,7 @@ import { createRoot } from 'react-dom/client';
 import Layout from './Components/Layout';
 
 createInertiaApp({
+    /** @param {string} name */
     resolve: (name) => {
         /** @type {Record<string, {default: import('react').ComponentType}>} */
         const pages = import.meta.glob('./Pages/**/*.jsx', { eager: true });
@@ -15,6 +16,12 @@ createInertiaApp({
 
         return page.default;
     },
+    /**
+     * @param {Object} options
+     * @param {HTMLElement} options.el
+     * @param {import('react').ComponentType<any>} options.App
+     * @param {Record<string, unknown>} options.props
+     */
     setup({ el, App, props }) {
         createRoot(el).render(<App {...props} />);
     },

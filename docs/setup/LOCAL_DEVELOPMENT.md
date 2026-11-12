@@ -90,5 +90,38 @@ Do not use `docker compose down -v` as routine cleanup. Stop with
 `.env` into the repository or share local credentials.
 
 Local-only example credentials are in `.env.example`; replace them for any shared
-environment. Google credentials are not required for this foundation, and local
-callback registration must never point at the production origin.
+environment.
+
+## Google SSO local setup
+
+SSO is disabled by default (`SSO_ENABLED=false`).  Backend tests mock the
+provider; no live Google credentials are required for the test suite.
+
+To exercise the real flow locally, register an OAuth client in the Google Cloud
+Console and set these in your local `.env` (never commit them):
+
+```bash
+SSO_ENABLED=true
+GOOGLE_CLIENT_ID=your-client-id
+GOOGLE_CLIENT_SECRET=your-client-secret
+GOOGLE_REDIRECT_URI=http://localhost:8000/auth/google/callback
+```
+
+The `GOOGLE_REDIRECT_URI` must exactly match the authorized redirect URI
+registered with Google and the `auth.google.callback` route.  Local callback
+registration must never point at the production origin.
+
+Approve a test invitee with a fake `.test` address:
+
+```bash
+php artisan sso:approve invited@example.test
+```
+
+Revoke access:
+
+```bash
+php artisan sso:revoke invited@example.test
+```
+
+Live OAuth/browser verification remains pending until credentials and exact
+callback registration are supplied externally.
