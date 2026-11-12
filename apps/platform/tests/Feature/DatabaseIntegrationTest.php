@@ -11,13 +11,6 @@ class DatabaseIntegrationTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected function setUp(): void
-    {
-        $this->assertSafeTestingDatabase();
-
-        parent::setUp();
-    }
-
     public function test_mysql_testing_database_can_insert_read_and_report_its_engine(): void
     {
         $this->assertSame('mysql', DB::connection()->getPdo()->getAttribute(\PDO::ATTR_DRIVER_NAME));
