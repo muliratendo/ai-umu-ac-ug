@@ -61,6 +61,19 @@ jobs:
           MYSQL_INIT_MYSQL_PORT: 3306
         run: tests/infra/mysql-init-regression.sh
 
+      - name: Hand off PHPUnit database credential
+        working-directory: .
+        env:
+          MYSQL_PWD: root
+        run: |
+          mysql --protocol=tcp --host=127.0.0.1 --port=3306 --user=root <<'SQL'
+          ALTER USER 'sail_test'@'%' IDENTIFIED BY 'password';
+          REVOKE ALL PRIVILEGES, GRANT OPTION FROM 'sail_test'@'%';
+          GRANT ALL PRIVILEGES ON `testing`.* TO 'sail_test'@'%';
+          FLUSH PRIVILEGES;
+          SQL
+          MYSQL_PWD=password mysql --protocol=tcp --host=127.0.0.1 --port=3306 --user=sail_test --database=testing --batch --skip-column-names --execute='SELECT DATABASE()' | grep -Fxq 'testing'
+
       - name: Prepare test application
         run: |
           cp .env.example .env
