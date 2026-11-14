@@ -280,10 +280,65 @@ unnecessary font downloads; the agent verified the font was unused in app
 source.
 **Affected:** `apps/platform/vite.config.js`; no package or lockfile changes.
 
+## D-022 — Follow-up completion attempt for the design refresh
+
+**Date:** 2026-11-14 · **Status:** superseded by D-023 · **Class:** [agent]
+
+A later session attempted to complete the reference-driven visual refresh but
+re-checked the prerequisite first. The required files
+`docs/design/references/umu-ai/index.html` and
+`docs/design/references/umu-ai/styles.css` are still absent, and the
+`docs/design/` directory does not exist. Per the standing instruction, the visual
+implementation was stopped, the exact missing paths were reported, and no
+substitute source or screenshot-derived implementation was produced. The
+authentication corrections published in `e86d5d8` were re-verified unchanged by
+the automated suites; browser acceptance checks could not run because no browser
+automation tool and no local server were available. The stale "next authorized
+task" wording was corrected to point at completion/acceptance of this milestone
+rather than automatic Twill enablement.
+
+**Authority:** user instruction to treat the design source files as a hard
+prerequisite and to stop when they are missing; prerequisite availability was
+verified by the agent across the repository, its history, and the attachment
+locations.
+**Affected:** `docs/setup/IMPLEMENTATION_STATUS.md`, `docs/testing/ACCEPTANCE.md`,
+`docs/testing/BROWSER_SUPPORT.md`, `docs/testing/LIVE_VERIFICATION.md`, and this
+register. Visual acceptance remains blocked.
+
+## D-023 — Reference-driven visual refresh implemented
+
+**Date:** 2026-11-14 · **Status:** accepted · **Class:** [agent]
+
+The user's original design sources `docs/design/references/umu-ai/index.html` and
+`docs/design/references/umu-ai/styles.css` became available and were read in full
+as inert references (embedded scripts and external links inspected but not
+executed or introduced). Their visual language — ink/paper/cream surfaces, teal
+emphasis, restrained orange/yellow accents, constrained width, editorial
+typography, thin borders, numbered cards, field-note/orbit decoration, and
+responsive grids — was translated into the existing React/Inertia components and
+application CSS. The shared shell, Home, Community, Account, recovery, and
+NotFound were refreshed while preserving the four community units, the broader
+UMU AI Community identity, public Home/Community access, the minimal invite-only
+Account page, and the truthful implemented-versus-planned wording; exploratory
+directions remain explicitly exploratory and every CTA points to an implemented
+route or a real section. No reference script, external resource, remote font, new
+package, or component framework was introduced. Contrast was measured and the
+orange/teal and area-card accents were darkened to reach 4.5:1, with a 3:1 focus
+ring and decorative art hidden from assistive technology. The automated component,
+accessibility, typecheck, backend, Composer, build, and route checks pass; real
+browser acceptance remains outstanding because no browser automation or local
+server was available, so the milestone is not yet fully accepted.
+
+**Authority:** user instruction to complete the refresh from the supplied
+references; technical translation choices by the agent.
+**Affected:** `apps/platform/resources/css/app.css`, the React pages/components,
+`apps/platform/tests/frontend/pages.test.jsx`, and the implementation/testing
+documentation.
+
 ## Proposals requiring approval
 
 No additional scope proposal was made. Pending external/evidence prerequisites:
-the missing design source files, real-browser checks, corrected live test
+real-browser acceptance of the refreshed visual layout, corrected live test
 identity and OAuth callback verification, and direct evidence for live
 reactivation and 404 behavior. A hosted-domain restriction remains unapplied
 until an authorized domain is supplied.

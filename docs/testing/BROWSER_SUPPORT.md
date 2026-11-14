@@ -20,7 +20,21 @@ entrypoint navigation, recovery, and full-page versus Inertia 404 presentation.
 VoiceOver with real Safari and NVDA are also pending.
 
 The requested design-source `index.html` and `styles.css` were not available in
-this session. The supplied screenshot is not a substitute for those source
-files, so the reference-driven visual refresh and its visual/accessibility
-acceptance remain blocked; no claim of matching the reference is made. See the
+an earlier session, so the reference-driven refresh was blocked then; the
+screenshot was not treated as a substitute. See the
 [live verification record](LIVE_VERIFICATION.md).
+
+A later session re-checked the required paths
+`docs/design/references/umu-ai/index.html` and
+`docs/design/references/umu-ai/styles.css`. Both are now present and were read in
+full as inert references, and the visual refresh was implemented against them in
+the existing React/Inertia components and application CSS. Contrast was measured
+rather than assumed: orange/teal and area-card accent colours were darkened so
+text and button pairings reach 4.5:1, focus indicators use a 3:1 contrast ring,
+and the decorative orbit is hidden from assistive technology. The component tests
+continue to cover landmarks, the skip link, keyboard-visible focus, reduced
+motion, and alert/status recovery semantics, but they are not browser evidence.
+That session had no browser automation tool, no browser binary, and no running
+local application server, so the desktop, narrow-screen, keyboard, recovery, and
+full-page-versus-Inertia-404 browser checks listed above as still required were
+not performed and are not claimed.

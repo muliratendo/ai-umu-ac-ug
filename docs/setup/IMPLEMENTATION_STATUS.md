@@ -17,11 +17,28 @@ Reactivation preserves the original identity binding and records prior
 revocation evidence. See ADR 0002, [ADR 0003](../architecture/decisions/0003-reactivation-and-session-enforcement.md),
 and the [decision register](../decisions/REGISTER.md).
 
-The reference-driven visual refresh is **not implemented**. The user supplied a
-screenshot and a request to read `index.html` and `styles.css`, but those source
-attachments were unavailable in this session. No replacement reference was
-searched for and no visual implementation or acceptance claim is inferred from
-the screenshot. See the [live verification record](../testing/LIVE_VERIFICATION.md).
+The reference-driven visual refresh is **implemented**. The source attachments
+were unavailable in the original implementation session and in an earlier
+follow-up attempt, so the refresh was left blocked then; that history is retained
+in the [live verification record](../testing/LIVE_VERIFICATION.md). The user's
+original `docs/design/references/umu-ai/index.html` and
+`docs/design/references/umu-ai/styles.css` later became available. Both were read
+in full as inert design references, their embedded scripts and external links
+were inspected but not executed, served, or introduced, and their visual language
+was translated into the existing React/Inertia components and application CSS:
+warm paper and cream surfaces, dark ink sections and text, teal emphasis,
+restrained orange/yellow accents, a constrained content width, editorial
+typography, thin borders, numbered cards, and field-note/orbit decoration on
+responsive grids. The shared header, navigation, footer, and page shell, plus
+Home, Community, Account, authentication recovery, and NotFound were refreshed
+while preserving the four community units, the broader UMU AI Community identity,
+public Home/Community access, the minimal invite-only Account page, and the
+truthful implemented-versus-planned wording. No reference script, CDN resource,
+remote font, new package, or component framework was added. Orange/teal and
+area-card accent colours were darkened after measuring WCAG contrast so button and
+label pairings reach 4.5:1. Browser acceptance for the refreshed layout remains
+outstanding because no browser automation tool and no running local server were
+available, so visual acceptance is not claimed yet.
 
 Deferred: explicit administrative authorization and Twill enablement (stage 2),
 membership, news/events/newsletter workflows, AI integration, uploads,
@@ -41,5 +58,11 @@ correction/reactivation, current 404 reproduction, VoiceOver/NVDA, CI
 execution, Render, and Aiven remain unverified unless recorded otherwise in the
 live-verification record.
 
-Next authorized task: explicit administrative authorization, then safely enable
-Twill (roadmap stage 2).
+Next authorized task: completion and acceptance of this authentication-correction
+and design-refresh milestone. The authentication corrections are published
+(commit `e86d5d8`) and re-verified by the automated suites. The reference-driven
+visual refresh is now implemented against the user's supplied design sources and
+its automated component/accessibility checks pass, but real-browser acceptance
+remains outstanding, so the milestone is not yet fully accepted. Explicit
+administrative authorization and Twill enablement (roadmap stage 2) follow only
+after that acceptance and are not started by this milestone.

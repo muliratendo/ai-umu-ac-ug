@@ -49,12 +49,15 @@ already exists.
 The initialization regression first checks unsafe targets without SQL, then executes
 real initialization SQL and verifies ordinary and SQL-significant password login,
 access to `testing`, and denial of the separate `platform` database. Keep this
-separate from normal application tests. The frontend tests cover community
-units, accessible navigation and skip links, deferred-feature messaging,
-sign-in visibility, full-browser Google entrypoint anchors (distinct from
-mocked Inertia links), account display, recovery outcomes and actions, POST
-logout button semantics, route-change focus, and axe smoke checks. No CI run is
-claimed here without an actual recorded CI result.
+separate from normal application tests. The frontend tests cover the redesigned
+pages retaining all four community units and the implemented-versus-planned
+wording, accessible navigation and skip links, deferred-feature messaging,
+sign-in visibility when SSO is disabled, full-browser Google entrypoint anchors
+(distinct from mocked Inertia links), internal Inertia links, account display,
+recovery outcomes and actions, POST logout button semantics, route-change focus,
+recovery-notice focus on a fresh full-page load without re-focusing on an Inertia
+transition, and axe smoke checks on the not-found, community, home, and account
+pages. No CI run is claimed here without an actual recorded CI result.
 
 ## Google SSO acceptance
 
@@ -99,6 +102,19 @@ responsive, keyboard, sign-in click, recovery, and 404 checks are pending; no
 real credentials are automated. See the
 [live verification record](LIVE_VERIFICATION.md). Supplied evidence does not
 establish corrected-account login, live reactivation, or a reproduced live 404.
+
+A later session re-ran this suite (40 passed, 229 assertions) both with assets
+present and with `public/build`/`public/hot` moved aside and restored through a
+shell trap, plus typecheck, the frontend tests (23 passed), Composer validation
+and platform checks, a production build with manifest verification, the route
+inventory, and `git diff --check`. The user's original
+`docs/design/references/umu-ai/index.html` and
+`docs/design/references/umu-ai/styles.css` became available in that session, so
+the reference-driven visual refresh was implemented against them. It still could
+not run the browser checks because no browser automation tool, no browser binary,
+and no local server were available; responsive, keyboard, recovery,
+Google-entrypoint, and full-page-versus-Inertia-404 browser acceptance therefore
+remain outstanding.
 
 SSO tests that render an Inertia page (e.g. the authenticated `/account`
 response and the home-page secrecy check) must use `withoutAssets()` and pass

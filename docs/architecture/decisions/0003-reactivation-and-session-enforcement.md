@@ -91,3 +91,17 @@ thin borders, and responsive layouts) and required reading attached
 session. No replacement source was sought, no page CSS was inferred from the
 screenshot, and no reference-driven visual change is claimed. The visual
 refresh remains blocked until the actual source attachments are available.
+
+A later completion attempt re-checked the required paths
+`docs/design/references/umu-ai/index.html` and
+`docs/design/references/umu-ai/styles.css` and found both absent (the
+`docs/design/` directory does not exist). The determination above therefore still
+holds, and the visual refresh remains blocked and unaccepted.
+
+**Update (later session, 2026-11-14):** the required references later became
+available at the specified paths and were read in full as inert design sources.
+The visual refresh was implemented against them in the existing React/Inertia
+components and application CSS, including measured contrast adjustments. This
+ADR's authentication decisions are unchanged; only the visual-refresh blocker is
+resolved, and real-browser acceptance of the refreshed layout remains
+outstanding.

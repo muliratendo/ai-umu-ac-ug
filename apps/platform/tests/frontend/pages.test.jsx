@@ -16,7 +16,7 @@ vi.mock('@inertiajs/react', () => ({
 import Account from '../../resources/js/Pages/Account';
 import Community from '../../resources/js/Pages/Community';
 import Home from '../../resources/js/Pages/Home';
-import Layout from '../../resources/js/Components/Layout';
+import Layout, { resetNavigationFocus } from '../../resources/js/Components/Layout';
 import NotFound from '../../resources/js/Pages/NotFound';
 import RecoveryNotice from '../../resources/js/Components/RecoveryNotice';
 
@@ -30,6 +30,7 @@ const signedIn = {
 describe('public pages', () => {
     beforeEach(() => {
         document.body.innerHTML = '';
+        resetNavigationFocus();
         mockUsePage.mockReturnValue({ props: noAuth });
     });
 
@@ -73,11 +74,41 @@ describe('public pages', () => {
 
         expect(results.violations).toEqual([]);
     });
+
+    it('separates implemented features from planned ones on the home page', () => {
+        render(<Home />);
+
+        expect(screen.getByRole('heading', { name: /what is available now/i })).toBeVisible();
+        expect(screen.getByText('Implemented')).toBeVisible();
+        expect(screen.getByText('Planned, not available yet')).toBeVisible();
+        expect(screen.getByRole('heading', { name: /early foundation for the community/i })).toBeVisible();
+        expect(screen.getByText(/not an official university publication/i)).toBeVisible();
+    });
+
+    it('renders internal navigation as Inertia links rather than full page loads', () => {
+        render(<Home />);
+
+        const community = screen.getByRole('link', { name: 'Community' });
+        expect(community).toHaveAttribute('href', '/community');
+        expect(community).toHaveAttribute('data-inertia-link');
+
+        const explore = screen.getByRole('link', { name: /explore the community/i });
+        expect(explore).toHaveAttribute('href', '/community');
+        expect(explore).toHaveAttribute('data-inertia-link');
+    });
+
+    it('passes an accessibility smoke check for the home page', async () => {
+        const { container } = render(<Home />);
+        const results = await axe.run(container);
+
+        expect(results.violations).toEqual([]);
+    });
 });
 
 describe('authentication UI states', () => {
     beforeEach(() => {
         document.body.innerHTML = '';
+        resetNavigationFocus();
     });
 
     it('shows a sign-in link when SSO is available', () => {
@@ -167,11 +198,77 @@ describe('authentication UI states', () => {
 
         expect(document.activeElement).toBe(document.getElementById('main-content'));
     });
+
+    it('keeps the recovery retry as a real full-page anchor to the provider entrypoint', () => {
+        render(<RecoveryNotice code="eligibility_denied" ssoAvailable />);
+
+        const retry = screen.getByRole('link', { name: 'Try a different Google account' });
+        expect(retry).toHaveAttribute('href', '/auth/google');
+        expect(retry).not.toHaveAttribute('data-inertia-link');
+    });
+
+    it('moves focus to the recovery notice on a fresh full-page load', () => {
+        mockUsePage.mockReturnValue({
+            props: {
+                auth: { user: null, sso_available: false },
+                flash: { auth_outcome: 'expired_request' },
+            },
+            url: '/auth/google/callback',
+        });
+        render(<Layout><span /></Layout>);
+
+        expect(document.activeElement).toBe(document.getElementById('recovery-notice'));
+    });
+
+    it('does not re-focus the recovery notice during an Inertia transition', () => {
+        mockUsePage.mockReturnValue({ props: noAuth, url: '/' });
+        const { rerender } = render(<Layout><span /></Layout>);
+
+        mockUsePage.mockReturnValue({
+            props: {
+                auth: { user: null, sso_available: true },
+                flash: { auth_outcome: 'cancelled' },
+            },
+            url: '/auth/google/callback',
+        });
+        rerender(<Layout><span /></Layout>);
+
+        // A live region inserted by a client-side transition announces itself;
+        // moving focus again would double-announce the message.
+        expect(screen.getByRole('alert')).toHaveTextContent('Sign-in was cancelled');
+        expect(document.activeElement).not.toBe(document.getElementById('recovery-notice'));
+    });
+
+    it('keeps Google sign-in on the home page as a real full-page anchor', () => {
+        mockUsePage.mockReturnValue({ props: ssoAvailable, url: '/' });
+        render(<Home />);
+
+        const links = screen.getAllByRole('link', { name: /sign in with google/i });
+        expect(links.length).toBeGreaterThan(0);
+        links.forEach((link) => {
+            expect(link).toHaveAttribute('href', '/auth/google');
+            expect(link).not.toHaveAttribute('data-inertia-link');
+        });
+    });
 });
 
 describe('account page', () => {
     beforeEach(() => {
         document.body.innerHTML = '';
+        resetNavigationFocus();
+    });
+
+    it('keeps sign-out as a semantic POST button', () => {
+        mockUsePage.mockReturnValue({ props: signedIn });
+        render(<Account />);
+
+        const buttons = screen.getAllByRole('button', { name: /sign out/i });
+        expect(buttons.length).toBeGreaterThan(0);
+        buttons.forEach((button) => {
+            expect(button).toHaveAttribute('data-inertia-method', 'post');
+            expect(button).toHaveAttribute('data-inertia-href', '/logout');
+        });
+        expect(screen.queryByRole('link', { name: /sign out/i })).not.toBeInTheDocument();
     });
 
     it('displays the signed-in identity without privileged badges', () => {

@@ -71,27 +71,35 @@ export default function RecoveryNotice({ code, ssoAvailable = false }) {
     const isError = outcome.tone === 'error';
 
     return (
-        <div className={`container recovery-notice recovery-${outcome.tone}`}>
-            <div className="recovery-body" role={isError ? 'alert' : 'status'}>
-                <h2 className="recovery-heading">{outcome.heading}</h2>
-                <p>{outcome.body}</p>
-                {outcome.retry && !ssoAvailable ? (
-                    <p className="recovery-hint">Sign-in is unavailable right now, so retrying is not offered.</p>
-                ) : null}
-            </div>
-            <ul className="recovery-actions">
-                {outcome.retry && ssoAvailable ? (
+        <section
+            id="recovery-notice"
+            tabIndex={-1}
+            className={`recovery-notice recovery-${outcome.tone}`}
+            aria-labelledby="recovery-heading"
+        >
+            <div className="container recovery-inner">
+                <div className="recovery-body" role={isError ? 'alert' : 'status'}>
+                    <p className="mini-label">{isError ? 'Sign-in notice' : 'Account notice'}</p>
+                    <h2 id="recovery-heading" className="recovery-heading">{outcome.heading}</h2>
+                    <p className="recovery-text">{outcome.body}</p>
+                    {outcome.retry && !ssoAvailable ? (
+                        <p className="recovery-hint">Sign-in is unavailable right now, so retrying is not offered.</p>
+                    ) : null}
+                </div>
+                <ul className="recovery-actions">
+                    {outcome.retry && ssoAvailable ? (
+                        <li>
+                            <a className="button button-primary" href="/auth/google">{outcome.retry}</a>
+                        </li>
+                    ) : null}
                     <li>
-                        <a className="button" href="/auth/google">{outcome.retry}</a>
+                        <a className="text-link" href="/">Return home</a>
                     </li>
-                ) : null}
-                <li>
-                    <a href="/">Return home</a>
-                </li>
-                <li>
-                    <a href="/community">View the community</a>
-                </li>
-            </ul>
-        </div>
+                    <li>
+                        <a className="text-link" href="/community">View the community</a>
+                    </li>
+                </ul>
+            </div>
+        </section>
     );
 }
