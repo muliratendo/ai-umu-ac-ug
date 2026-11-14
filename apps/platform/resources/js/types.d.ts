@@ -5,8 +5,7 @@ declare module '@inertiajs/core' {
             sso_available: boolean;
         };
         flash: {
-            auth_error: string | null;
-            auth_success: string | null;
+            auth_outcome: string | null;
         };
     }
 }

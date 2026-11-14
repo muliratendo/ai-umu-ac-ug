@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Support\GoogleSso;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Model;
 
 class SsoInvitation extends Model
@@ -24,6 +25,11 @@ class SsoInvitation extends Model
     public function redeemedBy(): BelongsTo
     {
         return $this->belongsTo(User::class, 'redeemed_by');
+    }
+
+    public function reactivationEvents(): HasMany
+    {
+        return $this->hasMany(SsoReactivationEvent::class, 'sso_invitation_id');
     }
 
     public function isActive(): bool

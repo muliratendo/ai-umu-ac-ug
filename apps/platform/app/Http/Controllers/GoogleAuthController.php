@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Exceptions\SsoAccessDenied;
+use App\Exceptions\SsoAuthenticationUnavailable;
 use App\Services\GoogleAccountService;
+use App\Support\AuthOutcome;
 use App\Support\GoogleSso;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -16,7 +18,10 @@ class GoogleAuthController extends Controller
     {
         abort_unless(GoogleSso::ready(), 404);
 
-        return Socialite::driver('google')->scopes(['openid', 'profile', 'email'])->redirect();
+        return Socialite::driver('google')
+            ->scopes(['openid', 'profile', 'email'])
+            ->with(['prompt' => 'select_account'])
+            ->redirect();
     }
 
     public function callback(Request $request, GoogleAccountService $accounts): RedirectResponse
@@ -32,21 +37,23 @@ class GoogleAuthController extends Controller
             if ($request->has('error')) {
                 $this->validateStateOrReject($request);
 
-                return redirect('/')->with('auth_error', 'Sign-in was cancelled or did not complete. Please try again if you intended to sign in.');
+                return redirect('/')->with('auth_outcome', AuthOutcome::CANCELLED);
             }
 
             $user = $accounts->authenticate($provider->user());
             auth()->login($user);
             $request->session()->regenerate();
 
-            return redirect('/account')->with('auth_success', 'You are signed in.');
+            return redirect('/account')->with('auth_outcome', AuthOutcome::SIGNED_IN);
         } catch (InvalidStateException) {
-            return redirect('/')->with('auth_error', 'That sign-in request expired. Please try again.');
+            return redirect('/')->with('auth_outcome', AuthOutcome::EXPIRED_REQUEST);
         } catch (SsoAccessDenied) {
-            return redirect('/')->with('auth_error', 'This account is not approved for access.');
-        } catch (\Exception $exception) {
+            return redirect('/')->with('auth_outcome', AuthOutcome::ELIGIBILITY_DENIED);
+        } catch (SsoAuthenticationUnavailable) {
+            return redirect('/')->with('auth_outcome', AuthOutcome::PROVIDER_UNAVAILABLE);
+        } catch (\Throwable $exception) {
             report($exception);
-            return redirect('/')->with('auth_error', 'Sign-in is unavailable. Please try again later.');
+            return redirect('/')->with('auth_outcome', AuthOutcome::PROVIDER_UNAVAILABLE);
         }
     }
 

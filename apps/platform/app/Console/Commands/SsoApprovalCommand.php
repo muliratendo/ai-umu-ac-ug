@@ -22,8 +22,11 @@ class SsoApprovalCommand extends Command
 
         $invitation = SsoInvitation::query()->firstOrNew(['email' => $email]);
 
+        // A redeemed invitation is a distinct, already-bound identity.  First-time
+        // approval must never silently reactivate it; that needs an explicit
+        // operator action via sso:reactivate.
         if ($invitation->redeemed_at !== null) {
-            $this->error('This approval has already been redeemed.');
+            $this->error('This approval has already been redeemed. Use sso:reactivate for an explicit reactivation.');
             return self::FAILURE;
         }
 

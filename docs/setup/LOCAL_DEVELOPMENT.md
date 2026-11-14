@@ -123,5 +123,23 @@ Revoke access:
 php artisan sso:revoke invited@example.test
 ```
 
-Live OAuth/browser verification remains pending until credentials and exact
-callback registration are supplied externally.
+Reactivation is an explicit local operation for a trusted operator who is
+independently authorized to manage approvals. Shell access alone is not proof
+of university approval. It never creates or links an account and restores only
+new-login eligibility for the original bound Google subject:
+
+```bash
+alias sail='sh $([ -f sail ] && echo sail || echo vendor/bin/sail)'
+sail artisan sso:reactivate invited@example.test
+```
+
+The command asks for interactive confirmation. Automation must use
+`sail artisan sso:reactivate invited@example.test --force` explicitly. An
+optional `--reason="..."` is stored in the minimal reactivation event; do not
+put credentials or sensitive personal approval details in the reason.
+`sso:approve` remains first-time approval and refuses redeemed invitations.
+
+Live OAuth/browser verification remains pending until the corrected test
+identity is approved and the external OAuth client/callback are available.
+See the [secret-free live verification record](../testing/LIVE_VERIFICATION.md)
+for evidence reported so far and outcomes that have not been established.

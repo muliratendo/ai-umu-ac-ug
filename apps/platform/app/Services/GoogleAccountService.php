@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Exceptions\SsoAccessDenied;
+use App\Exceptions\SsoAuthenticationUnavailable;
 use App\Models\GoogleIdentity;
 use App\Models\SsoInvitation;
 use App\Models\User;
@@ -74,7 +75,7 @@ class GoogleAccountService
             throw $exception;
         } catch (\Throwable $exception) {
             report($exception);
-            throw new SsoAccessDenied;
+            throw new SsoAuthenticationUnavailable(previous: $exception);
         }
     }
 

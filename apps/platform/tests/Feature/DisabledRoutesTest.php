@@ -25,7 +25,9 @@ class DisabledRoutesTest extends TestCase
 
     public function test_sso_routes_are_disabled_by_default(): void
     {
-        // SSO_ENABLED defaults to false; initiation and callback must fail safely.
+        // This contract is explicit even when the developer .env enables SSO.
+        config(['sso.enabled' => false]);
+
         foreach (['/auth/google', '/auth/google/callback'] as $uri) {
             $this->withoutAssets()->get($uri)->assertNotFound();
         }
@@ -33,4 +35,3 @@ class DisabledRoutesTest extends TestCase
         $this->assertContains($this->withoutAssets()->post('/auth/google')->status(), [404, 405]);
     }
 }
-

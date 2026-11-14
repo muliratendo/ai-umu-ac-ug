@@ -29,8 +29,7 @@ class HandleInertiaRequests extends Middleware
                 'sso_available' => GoogleSso::ready(),
             ],
             'flash' => [
-                'auth_error' => $request->session()->get('auth_error'),
-                'auth_success' => $request->session()->get('auth_success'),
+                'auth_outcome' => $request->session()->get('auth_outcome'),
             ],
         ];
     }

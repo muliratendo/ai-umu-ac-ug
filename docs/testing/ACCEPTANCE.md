@@ -15,6 +15,7 @@ npm run test
 php artisan test
 npm run build
 test -f public/build/manifest.json
+php artisan route:list --json
 git diff --check
 ```
 
@@ -39,17 +40,21 @@ docker compose port mysql 3306
 The backend tests use the isolated `testing` database and fail closed if effective
 Laravel configuration, a connection URL, or the actual connected database identity
 is unexpected. Public responses and Inertia components are tested with Vite output
-stubbed while the Inertia middleware remains active. Run the backend suite once with
-`public/build` present and once with that directory safely moved aside and restored
-with a shell trap; never delete existing build artifacts.
+stubbed while the Inertia middleware remains active. Run the backend suite once
+with its current assets present and once with any existing `public/build` and
+`public/hot` entries safely moved aside and restored with a shell trap. Never
+delete, overwrite, or replace developer assets; stop if the temporary destination
+already exists.
 
 The initialization regression first checks unsafe targets without SQL, then executes
 real initialization SQL and verifies ordinary and SQL-significant password login,
 access to `testing`, and denial of the separate `platform` database. Keep this
-separate from normal application tests. The frontend tests cover community units, accessible navigation and skip links,
-deferred-feature messaging, sign-in visibility, account display, failure-state
-flash notices, logout, and axe smoke checks.  No CI run is claimed here without
-an actual recorded CI result.
+separate from normal application tests. The frontend tests cover community
+units, accessible navigation and skip links, deferred-feature messaging,
+sign-in visibility, full-browser Google entrypoint anchors (distinct from
+mocked Inertia links), account display, recovery outcomes and actions, POST
+logout button semantics, route-change focus, and axe smoke checks. No CI run is
+claimed here without an actual recorded CI result.
 
 ## Google SSO acceptance
 
@@ -67,18 +72,33 @@ used in CI.  Covered scenarios:
 - No privileged status (role/is_admin) is created on login.
 - Missing, invalid, expired/replayed state rejected without provider contact.
 - Cancellation and provider failure return safe generic messages.
+- Fresh Google navigation requests account selection; retry remains a full-page
+  anchor and is only offered while configuration is ready.
+- Reactivation tests cover approval/redeem/revoke/deny/reactivate/login for the
+  original subject, preserved binding identifiers, denial of a different
+  subject, no additional user/identity or privileged status, explicit
+  confirmation, non-interactive refusal, refusal cases, idempotency, and
+  retained revocation evidence. Sequential tests do not prove simultaneous
+  concurrency.
 - No open redirect on login (always `/account`).
 - Session ID regenerated on login; POST-only logout invalidates session.
-- Unauthenticated `/account` redirects home.
+- Feature-disable and incomplete-configuration checks invalidate an existing
+  session on its next protected request; re-enabling does not restore that
+  invalidated session; logout and public pages remain available.
+- Unauthenticated `/account` redirects home with actionable recovery.
+- Unknown full-page and Inertia GETs use NotFound with HTTP 404; JSON 404s,
+  disabled SSO 404s, and method mismatch 405 semantics are checked separately.
 - Revoked approval blocks re-login and existing protected access.
 - Secrets not disclosed in shared props, health, or redirect URLs.
 - Twill/admin/password-registration/AI routes remain unavailable
   (`DisabledRoutesTest`).
 
 State-validation coverage uses the real Socialite provider (no fake) for the
-missing/invalid/replay cases, not only a mocked happy path.  Live
-OAuth/browser verification is pending external credentials and callback
-registration.
+missing/invalid/replay cases, not only a mocked happy path. Real-browser
+responsive, keyboard, sign-in click, recovery, and 404 checks are pending; no
+real credentials are automated. See the
+[live verification record](LIVE_VERIFICATION.md). Supplied evidence does not
+establish corrected-account login, live reactivation, or a reproduced live 404.
 
 SSO tests that render an Inertia page (e.g. the authenticated `/account`
 response and the home-page secrecy check) must use `withoutAssets()` and pass

@@ -225,11 +225,65 @@ Production deployment is separately authorized work, not an incidental action.
 **Authority:** user-approved product policy (this milestone prompt).
 **Affected:** `docs/setup/IMPLEMENTATION_STATUS.md`, all roadmap docs.
 
----
+## D-019 — Authentication recovery correction milestone
+
+**Date:** 2026-11-14 · **Status:** accepted · **Class:** [policy] + [agent]
+
+The user authorized explicit identity-preserving reactivation, full-browser
+Google entrypoints, request-time SSO enforcement for protected sessions,
+actionable non-disclosing recovery, deterministic browser/Inertia/JSON 404s,
+regression coverage, and evidence-based documentation. The user explicitly
+excluded later roadmap work, live configuration changes, real credential
+automation, and dependency upgrades.
+
+Implementation details selected within that scope: a minimal durable
+reactivation-event table; transaction and row locks with the existing unique
+constraints; interactive confirmation plus explicit `--force` for automation;
+opaque outcome codes; Google `prompt=select_account` on fresh flows; one
+request-time middleware boundary; an exception-rendered NotFound response
+instead of a catch-all route; and operational/database failures reported as
+temporary unavailability rather than eligibility denial. Sequential tests do
+not establish simultaneous concurrency behavior. Operator authority remains an
+external prerequisite; the command is not an approval system.
+
+**Authority:** product boundaries from the user; technical implementation
+choices by the agent.
+**Affected:** platform auth, routes, tests, ADR 0003, and security/testing docs.
+
+## D-020 — Missing visual source attachments
+
+**Date:** 2026-11-14 · **Status:** blocked · **Class:** [agent]
+
+The screenshot and requested visual direction were present in the request, but
+the required `index.html` and `styles.css` source files were not available in
+the attachment directory. Per the user's constraint, no substitute reference
+was searched for, no CSS/content was inferred from the screenshot, and the
+reference-driven page refresh was not implemented or accepted.
+
+**Authority:** user instruction to stop visual work when those files are
+unavailable; attachment availability was verified by the agent.
+**Affected:** visual acceptance remains blocked; recorded in the implementation
+status, browser support, ADR 0003, and live-verification record.
+
+## D-021 — Avoid unused remote font downloads during builds
+
+**Date:** 2026-11-14 · **Status:** accepted · **Class:** [agent]
+
+The existing Vite configuration requested Instrument Sans from Bunny during
+builds, but application source did not reference that font and already uses a
+local/system fallback stack. The unused fetch plugin was removed so validation
+does not introduce an external font request. This is not a claim that the
+reference-driven visual refresh was implemented.
+
+**Authority:** user direction to use CSS/system or already-local fonts and avoid
+unnecessary font downloads; the agent verified the font was unused in app
+source.
+**Affected:** `apps/platform/vite.config.js`; no package or lockfile changes.
 
 ## Proposals requiring approval
 
-None at this time.  Live OAuth/browser verification is pending external
-OAuth client credentials and exact callback registration.  A hosted-domain
-restriction is configurable but not applied until a university domain is
-supplied.
+No additional scope proposal was made. Pending external/evidence prerequisites:
+the missing design source files, real-browser checks, corrected live test
+identity and OAuth callback verification, and direct evidence for live
+reactivation and 404 behavior. A hosted-domain restriction remains unapplied
+until an authorized domain is supplied.

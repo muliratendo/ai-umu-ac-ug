@@ -51,6 +51,7 @@ class GoogleSsoTest extends TestCase
         $this->assertStringContainsString('accounts.google.com', $location);
         $this->assertStringContainsString('state=', $location);
         $this->assertStringContainsString('client_id=client-id', $location);
+        $this->assertStringContainsString('prompt=select_account', $location);
         $this->assertStringNotContainsString('client-secret', $location);
     }
 
@@ -58,7 +59,7 @@ class GoogleSsoTest extends TestCase
     {
         $this->get('/auth/google/callback?code=unused')
             ->assertRedirect('/')
-            ->assertSessionHas('auth_error', 'That sign-in request expired. Please try again.');
+            ->assertSessionHas('auth_outcome', 'expired_request');
     }
 
     public function test_invalid_callback_state_is_rejected_without_provider_contact(): void
@@ -66,21 +67,21 @@ class GoogleSsoTest extends TestCase
         $this->withSession(['state' => 'session-state'])
             ->get('/auth/google/callback?code=fake&state=wrong-state')
             ->assertRedirect('/')
-            ->assertSessionHas('auth_error', 'That sign-in request expired. Please try again.');
+            ->assertSessionHas('auth_outcome', 'expired_request');
     }
 
     public function test_state_is_single_use_and_replay_is_rejected(): void
     {
         // First: mismatched state — rejected and state is consumed (pulled from session).
         $this->withSession(['state' => 'original'])
-            ->get('/auth/google/callback?code=fake&state=wrong')
+            ->get('/auth/google/callback?state=wrong')
             ->assertRedirect('/')
-            ->assertSessionHas('auth_error', 'That sign-in request expired. Please try again.');
+            ->assertSessionHas('auth_outcome', 'expired_request');
 
         // Second: the original state — rejected because it was already consumed.
-        $this->get('/auth/google/callback?code=fake&state=original')
+        $this->get('/auth/google/callback?state=original')
             ->assertRedirect('/')
-            ->assertSessionHas('auth_error', 'That sign-in request expired. Please try again.');
+            ->assertSessionHas('auth_outcome', 'expired_request');
     }
 
     public function test_cancellation_returns_cancellation_message(): void
@@ -88,7 +89,7 @@ class GoogleSsoTest extends TestCase
         $this->withSession(['state' => 'state'])
             ->get('/auth/google/callback?error=access_denied&state=state')
             ->assertRedirect('/')
-            ->assertSessionHas('auth_error');
+            ->assertSessionHas('auth_outcome', 'cancelled');
 
         $this->assertGuest();
     }
@@ -102,7 +103,7 @@ class GoogleSsoTest extends TestCase
         $this->withSession(['state' => 'state'])
             ->get('/auth/google/callback?state=state')
             ->assertRedirect('/')
-            ->assertSessionHas('auth_error', 'Sign-in is unavailable. Please try again later.');
+            ->assertSessionHas('auth_outcome', 'provider_unavailable');
     }
 
     public function test_approved_verified_identity_can_redeem_once_and_access_account(): void
@@ -191,7 +192,7 @@ class GoogleSsoTest extends TestCase
         $invitation->update(['revoked_at' => now()]);
 
         // Existing protected access is blocked.
-        $this->get('/account')->assertRedirect('/')->assertSessionHas('auth_error');
+        $this->get('/account')->assertRedirect('/')->assertSessionHas('auth_outcome', 'eligibility_denied');
         $this->assertGuest();
 
         // A new login attempt is also rejected.
@@ -217,11 +218,53 @@ class GoogleSsoTest extends TestCase
         $this->assertGuest();
     }
 
+    public function test_disabled_sso_terminates_existing_session_until_a_new_login(): void
+    {
+        SsoInvitation::query()->create(['email' => 'invited@example.test', 'approved_at' => now()]);
+        Socialite::fake('google', $this->providerUser());
+        $this->withSession(['state' => 'state'])->get('/auth/google/callback?state=state');
+        $this->assertAuthenticated();
+
+        config(['sso.enabled' => false]);
+
+        $this->withoutAssets()->get('/account')
+            ->assertRedirect('/')
+            ->assertSessionHas('auth_outcome', 'signin_unavailable');
+        $this->assertGuest();
+
+        config(['sso.enabled' => true]);
+
+        $this->withoutAssets()->get('/account')
+            ->assertRedirect('/')
+            ->assertSessionHas('auth_outcome', 'signin_required');
+        $this->assertGuest();
+    }
+
+    public function test_incomplete_sso_configuration_terminates_existing_session_and_keeps_public_pages_open(): void
+    {
+        SsoInvitation::query()->create(['email' => 'invited@example.test', 'approved_at' => now()]);
+        Socialite::fake('google', $this->providerUser());
+        $this->withSession(['state' => 'state'])->get('/auth/google/callback?state=state');
+        $this->assertAuthenticated();
+
+        config(['sso.client_secret' => null]);
+
+        $this->get('/auth/google')->assertNotFound();
+        $this->get('/auth/google/callback?code=unused')->assertNotFound();
+        $this->withoutAssets()->get('/account')
+            ->assertRedirect('/')
+            ->assertSessionHas('auth_outcome', 'signin_unavailable');
+        $this->assertGuest();
+
+        $this->withoutAssets()->get('/')->assertOk();
+        $this->withoutAssets()->get('/community')->assertOk();
+    }
+
     public function test_unauthenticated_account_access_redirects_home(): void
     {
         $this->withoutAssets()->get('/account')
             ->assertRedirect('/')
-            ->assertSessionHas('auth_error');
+            ->assertSessionHas('auth_outcome', 'signin_required');
 
         $this->assertGuest();
     }
