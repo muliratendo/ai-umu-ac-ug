@@ -1,0 +1,1 @@
+(function(){"use strict";document.querySelectorAll("[data-demo-action='sign-out']").forEach(function(button){button.addEventListener("click",function(){window.location.href="signed-out.html";});});})();

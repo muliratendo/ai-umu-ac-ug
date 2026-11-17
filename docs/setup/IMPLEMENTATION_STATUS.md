@@ -66,3 +66,11 @@ its automated component/accessibility checks pass, but real-browser acceptance
 remains outstanding, so the milestone is not yet fully accepted. Explicit
 administrative authorization and Twill enablement (roadmap stage 2) follow only
 after that acceptance and are not started by this milestone.
+
+<!-- frontend-release-reliability-2026-11-17 -->
+## Frontend release-reliability correction
+
+User verified local Google-button navigation recovery after refreshing served assets.
+Inertia-aware initiation, manifest validation and built-asset smoke tooling are supplied;
+execution evidence is required before acceptance. No production rollout or administrative
+milestone is implied. See [requirements](../testing/FRONTEND_RELEASE_RELIABILITY.md).

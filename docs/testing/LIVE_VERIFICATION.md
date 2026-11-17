@@ -136,3 +136,13 @@ is claimed; those still require operator-controlled live evidence.
 **Repository-state note:** the working tree still retains the three unstaged mode
 changes noted above (`100755`), left untouched; no dependency manifest or
 lockfile changed.
+
+<!-- frontend-release-reliability-2026-11-17 -->
+## Frontend navigation incident — user verification
+
+On 17 November 2026 the user confirmed Google-button navigation worked after installing
+fresh compiled assets and replacing the active manifest. This establishes user-reported
+navigation recovery, NOT callback login, live reactivation, or production acceptance.
+New reliability automation is pending execution. See
+[incident](incidents/2026-11-17-stale-oauth-frontend.md) and
+[release requirements](FRONTEND_RELEASE_RELIABILITY.md).

@@ -9,19 +9,27 @@ use App\Support\AuthOutcome;
 use App\Support\GoogleSso;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
+use Symfony\Component\HttpFoundation\Response as HttpResponse;
 use Laravel\Socialite\Facades\Socialite;
 use Laravel\Socialite\Two\InvalidStateException;
 
 class GoogleAuthController extends Controller
 {
-    public function redirect(): RedirectResponse
+    public function redirect(Request $request): HttpResponse
     {
         abort_unless(GoogleSso::ready(), 404);
 
-        return Socialite::driver('google')
+        $redirect = Socialite::driver('google')
             ->scopes(['openid', 'profile', 'email'])
             ->with(['prompt' => 'select_account'])
             ->redirect();
+
+        if ($request->header('X-Inertia')) {
+            return Inertia::location($redirect->getTargetUrl());
+        }
+
+        return $redirect;
     }
 
     public function callback(Request $request, GoogleAccountService $accounts): RedirectResponse
@@ -64,8 +72,15 @@ class GoogleAuthController extends Controller
     private function validateStateOrReject(Request $request): void
     {
         $sessionState = $request->session()->pull('state');
+        $requestState = $request->input('state');
 
-        if (empty($sessionState) || ! hash_equals($sessionState, (string) $request->input('state'))) {
+        if (
+            ! is_string($sessionState)
+            || $sessionState === ''
+            || ! is_string($requestState)
+            || $requestState === ''
+            || ! hash_equals($sessionState, $requestState)
+        ) {
             throw new InvalidStateException;
         }
     }

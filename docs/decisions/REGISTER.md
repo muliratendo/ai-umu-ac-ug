@@ -342,3 +342,14 @@ real-browser acceptance of the refreshed visual layout, corrected live test
 identity and OAuth callback verification, and direct evidence for live
 reactivation and 404 behavior. A hosted-domain restriction remains unapplied
 until an authorized domain is supplied.
+
+<!-- frontend-release-reliability-2026-11-17 -->
+## Frontend release reliability — 17 November 2026
+
+Authority: user-requested bounded correction. Technical choices: preserve ordinary Google
+anchor, adapt older Inertia initiation through external-location protocol, validate
+manifest references, test served bytes, record build identity and retain rollback assets.
+The local workflow is not a production deployment system. Production must promote one
+complete tested application+asset artifact. No Twill, roles, new infrastructure, deployment,
+commit or push is authorized. Execution remains pending. See
+[requirements](../testing/FRONTEND_RELEASE_RELIABILITY.md).

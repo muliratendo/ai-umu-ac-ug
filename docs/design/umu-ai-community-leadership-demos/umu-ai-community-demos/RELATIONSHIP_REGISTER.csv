@@ -1,0 +1,16 @@
+source_node,target_node,type,direction,source_passage,approval_status,uncertainty,verification_date
+UMU-AI Community,General Assembly,constitutional membership/accountability,community to body,"General Assembly membership and voting powers depend on approved constitution",draft for consultation,"Constitution and membership not supplied",2026-11-17
+UMU-AI Community,Community Advisory and Oversight Board,advisory oversight,community to body,"Three governance groupings; Board composition and chair require nomination/approval",draft for consultation,"Mandate and composition pending",2026-11-17
+UMU-AI Community,Executive Committee,executive coordination,community to body,"Three governance groupings; Executive Committee membership listed",draft for consultation,"Do not infer President-only chain",2026-11-17
+Vice President,Learning and Student Engagement Division,operational coordination,role to division,"Coordinated by the Vice President",draft for consultation,"Appointment and mandate pending",2026-11-17
+Project Manager,Research and Projects Development Division,operational coordination,role to division,"Coordinated by the Project Manager",draft for consultation,"Appointment and mandate pending",2026-11-17
+Project Manager,Executive Committee,explicit reporting,role to body,"Reports recommendations and progress to the Executive Committee",draft for consultation,"Scope/cadence not supplied",2026-11-17
+Project Manager,Committee of Project Leads,appointment/coordination,role to committee,"Appoints and coordinates category Leads",draft for consultation,"Not automatically academic supervision",2026-11-17
+Social Media Officer,Social Media Blog and Newsletter Division,operational leadership,role to division,"Led by the Social Media Officer",draft for consultation,"Not automatically a new elected seat",2026-11-17
+Faculty mentors and university staff,Project Leads,academic/technical supervision,collaboration to roles,"Collaborators and supervisors, not subordinates",draft for consultation,"Specific people/terms not supplied",2026-11-17
+UMU-AI,Competent university authority,institutional authorisation,authority to community,"Recognition, commitments, and authorised expansion",institutional relationship,"Officeholder and route not supplied",2026-11-17
+Dean of Students,UMU-AI,institutional relationship,office to community,"Student-affairs coordination and oversight",institutional relationship,"Not operational subordinate",2026-11-17
+UMUSU Executive,UMU-AI,institutional relationship,body to community,"Student-organisation recognition and representation processes",institutional relationship,"Actual process not supplied",2026-11-17
+UMUSU Judiciary,UMU-AI,constitutional compliance,body to community,"Constitutional compliance within actual mandate; not daily management",institutional relationship,"Mandate boundary requires confirmation",2026-11-17
+Academic leadership/deans/research offices,Project work,academic/technical supervision,offices to work,"Academic participation, supervision, and research approvals",institutional relationship,"Do not show as operational subordinate",2026-11-17
+ICT Finance HR Library Estates,UMU-AI,service-owner authority,offices to systems,"Retain authority over systems, information, resources, and operations",institutional relationship,"Specific interfaces not supplied",2026-11-17

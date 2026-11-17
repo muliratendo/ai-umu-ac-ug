@@ -1,0 +1,1 @@
+(function(){"use strict";var links=document.querySelectorAll("[data-profile-nav] a");links.forEach(function(link){link.addEventListener("click",function(){var target=document.querySelector(link.getAttribute("href"));if(target){target.setAttribute("tabindex","-1");target.focus({preventScroll:true});}});});})();

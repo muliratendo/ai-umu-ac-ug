@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit bootstrap="vendor/autoload.php" colors="true" failOnWarning="true" failOnRisky="true">
+  <testsuites>
+    <testsuite name="Authentication acceptance">
+      <file>tests/Feature/OAuthInitiationReliabilityTest.php</file>
+      <file>tests/Feature/AuthAcceptanceTest.php</file>
+      <file>tests/Feature/AuthConcurrencyAcceptanceTest.php</file>
+      <file>tests/Feature/GoogleSsoTest.php</file>
+      <file>tests/Feature/SsoReactivationTest.php</file>
+      <file>tests/Feature/NotFoundResponseTest.php</file>
+      <file>tests/Feature/DisabledRoutesTest.php</file>
+    </testsuite>
+  </testsuites>
+  <php>
+    <env name="APP_ENV" value="testing" force="true"/>
+    <env name="APP_KEY" value="base64:QUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUE=" force="true"/>
+    <env name="APP_DEBUG" value="false" force="true"/>
+    <env name="DB_CONNECTION" value="mysql" force="true"/>
+    <env name="DB_HOST" value="127.0.0.1" force="true"/>
+    <env name="DB_PORT" value="3307" force="true"/>
+    <env name="DB_DATABASE" value="testing" force="true"/>
+    <env name="DB_USERNAME" value="auth_acceptance" force="true"/>
+    <env name="DB_PASSWORD" value="acceptance-only-password" force="true"/>
+    <env name="DB_URL" value="" force="true"/>
+    <env name="DATABASE_URL" value="" force="true"/>
+    <env name="SESSION_DRIVER" value="array" force="true"/>
+    <env name="CACHE_STORE" value="array" force="true"/>
+    <env name="QUEUE_CONNECTION" value="sync" force="true"/>
+    <env name="MAIL_MAILER" value="array" force="true"/>
+    <env name="BCRYPT_ROUNDS" value="4" force="true"/>
+    <env name="SSO_ENABLED" value="false" force="true"/>
+  </php>
+</phpunit>
