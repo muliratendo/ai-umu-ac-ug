@@ -103,10 +103,154 @@
       "evidence_sha256": "87ee98733f48d0eabc66fdc7c9d5008a93f503c98e0679445d29b6a8cc0adcab",
       "observed_commit": "18ff4f15bb79f3b24abf3af412f06aef41ed0f8b",
       "fingerprint": "7445e982c43cdee85f929a5818ab1ad527e1ebecd63f93bb3b896ea0a98b8d4f"
+    },
+    {
+      "format": 2,
+      "at": "2026-11-18T21:53:01.583497+00:00",
+      "task": "g1-signin",
+      "kind": "positive",
+      "result": "pass",
+      "by": "muliratendo",
+      "evidence": "docs/evidence/g1-signin-positive.json",
+      "evidence_sha256": "a56009f4a52a607e031ae196f33c21238bbca520369f297c2e8094d30c11d43f",
+      "observed_commit": "fde4a3d6144a32a1eea65733decc23a7c0b930f6",
+      "fingerprint": "00198252a043e3bab0fe9b005403800f96bac9f5a38035379bbc9fffe550f16f"
+    },
+    {
+      "format": 2,
+      "at": "2026-11-18T21:53:02.497230+00:00",
+      "task": "g1-signin",
+      "kind": "negative",
+      "result": "pass",
+      "by": "muliratendo",
+      "evidence": "docs/evidence/g1-signin-negative.json",
+      "evidence_sha256": "6ff2a78f8d6ee0c391c69cb5e99e3dff062adc6a86fb7b11151d6a2ffc83818c",
+      "observed_commit": "fde4a3d6144a32a1eea65733decc23a7c0b930f6",
+      "fingerprint": "00198252a043e3bab0fe9b005403800f96bac9f5a38035379bbc9fffe550f16f"
+    },
+    {
+      "format": 2,
+      "at": "2026-11-18T21:53:04.073385+00:00",
+      "task": "g1-signin",
+      "kind": "regression",
+      "result": "pass",
+      "by": "muliratendo",
+      "evidence": "docs/evidence/g1-signin-regression.json",
+      "evidence_sha256": "e64ebd365b7c51be73868f2754680cf5452730abf2176460a44f87e82ecd23f6",
+      "observed_commit": "fde4a3d6144a32a1eea65733decc23a7c0b930f6",
+      "fingerprint": "00198252a043e3bab0fe9b005403800f96bac9f5a38035379bbc9fffe550f16f"
+    },
+    {
+      "format": 2,
+      "at": "2026-11-18T21:53:05.516671+00:00",
+      "task": "g1-signin",
+      "kind": "decision",
+      "result": "pass",
+      "by": "muliratendo",
+      "evidence": "docs/evidence/g1-signin-decision.json",
+      "evidence_sha256": "16d9c02ef25d095f4af5101fd21c91bed6524b18dbec4f5a4592da67883098d8",
+      "observed_commit": "fde4a3d6144a32a1eea65733decc23a7c0b930f6",
+      "fingerprint": "00198252a043e3bab0fe9b005403800f96bac9f5a38035379bbc9fffe550f16f"
+    },
+    {
+      "format": 2,
+      "at": "2026-11-18T21:53:06.884845+00:00",
+      "task": "g1-revoke",
+      "kind": "positive",
+      "result": "pass",
+      "by": "muliratendo",
+      "evidence": "docs/evidence/g1-revoke-positive.json",
+      "evidence_sha256": "b4beb473326fae074b827c22c2063dfe5beecf3d40fba7e04d556c59e3cff214",
+      "observed_commit": "fde4a3d6144a32a1eea65733decc23a7c0b930f6",
+      "fingerprint": "00198252a043e3bab0fe9b005403800f96bac9f5a38035379bbc9fffe550f16f"
+    },
+    {
+      "format": 2,
+      "at": "2026-11-18T21:53:08.684487+00:00",
+      "task": "g1-revoke",
+      "kind": "negative",
+      "result": "pass",
+      "by": "muliratendo",
+      "evidence": "docs/evidence/g1-revoke-negative.json",
+      "evidence_sha256": "ba5d6f255b8e8e4f31b94e4b2d201a566120eb59362826eb99557f1c03c11b65",
+      "observed_commit": "fde4a3d6144a32a1eea65733decc23a7c0b930f6",
+      "fingerprint": "00198252a043e3bab0fe9b005403800f96bac9f5a38035379bbc9fffe550f16f"
+    },
+    {
+      "format": 2,
+      "at": "2026-11-18T21:53:09.781413+00:00",
+      "task": "g1-revoke",
+      "kind": "regression",
+      "result": "pass",
+      "by": "muliratendo",
+      "evidence": "docs/evidence/g1-revoke-regression.json",
+      "evidence_sha256": "8aadac9edf0b896c0e8742efd032b22f0b62bfaf30c7b52d6d307246c6bdf915",
+      "observed_commit": "fde4a3d6144a32a1eea65733decc23a7c0b930f6",
+      "fingerprint": "00198252a043e3bab0fe9b005403800f96bac9f5a38035379bbc9fffe550f16f"
+    },
+    {
+      "format": 2,
+      "at": "2026-11-18T21:53:11.104759+00:00",
+      "task": "g1-revoke",
+      "kind": "decision",
+      "result": "pass",
+      "by": "muliratendo",
+      "evidence": "docs/evidence/g1-revoke-decision.json",
+      "evidence_sha256": "0624b32a6687a81bea0bb4e97234d9f2596505fcea56c4348dcbcced88857e33",
+      "observed_commit": "fde4a3d6144a32a1eea65733decc23a7c0b930f6",
+      "fingerprint": "00198252a043e3bab0fe9b005403800f96bac9f5a38035379bbc9fffe550f16f"
+    },
+    {
+      "format": 2,
+      "at": "2026-11-18T21:53:12.576119+00:00",
+      "task": "g1-disable",
+      "kind": "positive",
+      "result": "pass",
+      "by": "muliratendo",
+      "evidence": "docs/evidence/g1-disable-positive.json",
+      "evidence_sha256": "4806f57b212b9bbf7d50c6091d992f94efabd559ed4c803f70a08c1411471a25",
+      "observed_commit": "fde4a3d6144a32a1eea65733decc23a7c0b930f6",
+      "fingerprint": "00198252a043e3bab0fe9b005403800f96bac9f5a38035379bbc9fffe550f16f"
+    },
+    {
+      "format": 2,
+      "at": "2026-11-18T21:53:13.880550+00:00",
+      "task": "g1-disable",
+      "kind": "negative",
+      "result": "pass",
+      "by": "muliratendo",
+      "evidence": "docs/evidence/g1-disable-negative.json",
+      "evidence_sha256": "29ff5e72bd478cf40fa2fd4aec88f7fddc8e22b9db705d7c6a30890edb353267",
+      "observed_commit": "fde4a3d6144a32a1eea65733decc23a7c0b930f6",
+      "fingerprint": "00198252a043e3bab0fe9b005403800f96bac9f5a38035379bbc9fffe550f16f"
+    },
+    {
+      "format": 2,
+      "at": "2026-11-18T21:53:15.318218+00:00",
+      "task": "g1-disable",
+      "kind": "regression",
+      "result": "pass",
+      "by": "muliratendo",
+      "evidence": "docs/evidence/g1-disable-regression.json",
+      "evidence_sha256": "60882d3555e20a76d64302137c1088cc856f8ebc4ae04ea414521eafee7c643a",
+      "observed_commit": "fde4a3d6144a32a1eea65733decc23a7c0b930f6",
+      "fingerprint": "00198252a043e3bab0fe9b005403800f96bac9f5a38035379bbc9fffe550f16f"
+    },
+    {
+      "format": 2,
+      "at": "2026-11-18T21:53:16.159116+00:00",
+      "task": "g1-disable",
+      "kind": "decision",
+      "result": "pass",
+      "by": "muliratendo",
+      "evidence": "docs/evidence/g1-disable-decision.json",
+      "evidence_sha256": "cd6628ced6f56d1260ce746d40153a6b2c02253a9d01a460798fe69b43485460",
+      "observed_commit": "fde4a3d6144a32a1eea65733decc23a7c0b930f6",
+      "fingerprint": "00198252a043e3bab0fe9b005403800f96bac9f5a38035379bbc9fffe550f16f"
     }
   ],
   "view_hashes": {
-    "docs/gates/STATUS.md": "59da0c9e327e5d39e19283eee4aefd8248ba6b4a790ad86692ec7681a5baa314",
-    "docs/gates/RESPONSE_STATUS.md": "bf2b158f51e5461c6e2fb73b201a0245a8881fac297a5774eef3700192e15c56"
+    "docs/gates/STATUS.md": "af451555960273727598de9828148cc57c242e92f9840def283bae269ec033a3",
+    "docs/gates/RESPONSE_STATUS.md": "84a62094d9d14e91a09bf3f9799c7bd384239569876335e715cbecc8ad550e60"
   }
 }

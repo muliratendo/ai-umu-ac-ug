@@ -2,7 +2,7 @@
 
 | Gate | Work | Status |
 |---|---|---|
-| 1 | Complete current SSO and CI verification | IN_PROGRESS |
+| 1 | Complete current SSO and CI verification | COMPLETE |
 | 2 | Approve separate administrative grants, grant/revoke authority, publishing and audit policy | AWAITING_APPROVAL |
 | 3 | Test protected reads and writes with Twill disabled | BLOCKED |
 | 4 | Enable and test Twill locally only | BLOCKED |

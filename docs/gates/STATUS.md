@@ -4,7 +4,7 @@
 
 | Gate | Work | Status |
 |---|---|---|
-| 1 | Complete current SSO and CI verification | IN_PROGRESS |
+| 1 | Complete current SSO and CI verification | COMPLETE |
 | 2 | Approve separate administrative grants, grant/revoke authority, publishing and audit policy | AWAITING_APPROVAL |
 | 3 | Test protected reads and writes with Twill disabled | BLOCKED |
 | 4 | Enable and test Twill locally only | BLOCKED |
@@ -18,9 +18,9 @@
 ## Tasks
 
 - [x] Gate 1: `g1-ci` — COMPLETE; requires positive, negative, regression, decision.
-- [ ] Gate 1: `g1-signin` — REPORTED_PASS; requires positive, negative, regression, decision.
-- [ ] Gate 1: `g1-revoke` — REPORTED_PASS; requires positive, negative, regression, decision.
-- [ ] Gate 1: `g1-disable` — REPORTED_PASS; requires positive, negative, regression, decision.
+- [x] Gate 1: `g1-signin` — COMPLETE; requires positive, negative, regression, decision.
+- [x] Gate 1: `g1-revoke` — COMPLETE; requires positive, negative, regression, decision.
+- [x] Gate 1: `g1-disable` — COMPLETE; requires positive, negative, regression, decision.
 - [ ] Gate 2: `g2-policy` — PENDING; requires approval, negative, decision.
 - [ ] Gate 3: `g3-authorization` — PENDING; requires positive, negative, regression, decision.
 - [ ] Gate 4: `g4-twill` — PENDING; requires positive, negative, regression, decision.
@@ -48,3 +48,15 @@
 - 2026-11-18T20:19:38.465676+00:00 — g1-ci: negative/pass; docs/evidence/ci-negative-e2ca1ef.json.
 - 2026-11-18T20:19:38.709564+00:00 — g1-ci: regression/pass; docs/evidence/ci-regression-e2ca1ef.json.
 - 2026-11-18T20:19:38.957334+00:00 — g1-ci: decision/pass; docs/evidence/ci-decision-e2ca1ef.json.
+- 2026-11-18T21:53:01.583497+00:00 — g1-signin: positive/pass; docs/evidence/g1-signin-positive.json.
+- 2026-11-18T21:53:02.497230+00:00 — g1-signin: negative/pass; docs/evidence/g1-signin-negative.json.
+- 2026-11-18T21:53:04.073385+00:00 — g1-signin: regression/pass; docs/evidence/g1-signin-regression.json.
+- 2026-11-18T21:53:05.516671+00:00 — g1-signin: decision/pass; docs/evidence/g1-signin-decision.json.
+- 2026-11-18T21:53:06.884845+00:00 — g1-revoke: positive/pass; docs/evidence/g1-revoke-positive.json.
+- 2026-11-18T21:53:08.684487+00:00 — g1-revoke: negative/pass; docs/evidence/g1-revoke-negative.json.
+- 2026-11-18T21:53:09.781413+00:00 — g1-revoke: regression/pass; docs/evidence/g1-revoke-regression.json.
+- 2026-11-18T21:53:11.104759+00:00 — g1-revoke: decision/pass; docs/evidence/g1-revoke-decision.json.
+- 2026-11-18T21:53:12.576119+00:00 — g1-disable: positive/pass; docs/evidence/g1-disable-positive.json.
+- 2026-11-18T21:53:13.880550+00:00 — g1-disable: negative/pass; docs/evidence/g1-disable-negative.json.
+- 2026-11-18T21:53:15.318218+00:00 — g1-disable: regression/pass; docs/evidence/g1-disable-regression.json.
+- 2026-11-18T21:53:16.159116+00:00 — g1-disable: decision/pass; docs/evidence/g1-disable-decision.json.
