@@ -54,6 +54,15 @@ jobs:
       - name: Check platform requirements
         run: composer check-platform-reqs
 
+      - name: Verify committed MySQL script modes
+        working-directory: .
+        shell: bash
+        run: |
+          chmod u+x -- \
+            tests/infra/mysql-init-regression.sh \
+            infra/local/mysql-init/01-create-testing-database.sh
+          tests/infra/mysql-init-regression.sh
+
       - name: Execute isolated MySQL initialization checks
         working-directory: .
         env:
