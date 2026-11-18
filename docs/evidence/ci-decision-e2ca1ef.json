@@ -1,0 +1,13 @@
+{
+  "scope": "Gate 1 CI decision evidence for tested inputs at e2ca1efa58af6b26ea58850a26a425f6a7566580",
+  "result": "pass",
+  "regression_test": "tests/maintenance/test_ci_preflight.py; tests/maintenance/test_mysql_regression_wrapper.py; tests/maintenance/test_gates_v2.py",
+  "limitations": "Does not establish the cause of the earlier tracked-file failure, independently verify live SSO, or establish deployment readiness.",
+  "cause": "The old preflight rejected non-executable committed modes before the CI wrapper could run.",
+  "decision": "Accept tracked regular scripts at 100644 or 100755 in the read-only verifier. Let the CI wrapper grant temporary execution as needed and restore the starting modes. Keep invalid-script findings fatal.",
+  "observed_result": "Decision reviewed and approved by the operator. The local fixtures and GitHub workflow results support the chosen behavior.",
+  "runs": [
+    "https://github.com/muliratendo/ai-umu-ac-ug/actions/runs/44343285933",
+    "https://github.com/muliratendo/ai-umu-ac-ug/actions/runs/44343285174"
+  ]
+}

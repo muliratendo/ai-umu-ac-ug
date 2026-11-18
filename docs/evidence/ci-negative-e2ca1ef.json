@@ -1,0 +1,12 @@
+{
+  "scope": "Gate 1 CI negative evidence for tested inputs at e2ca1efa58af6b26ea58850a26a425f6a7566580",
+  "result": "pass",
+  "regression_test": "tests/maintenance/test_ci_preflight.py; tests/maintenance/test_mysql_regression_wrapper.py; tests/maintenance/test_gates_v2.py",
+  "limitations": "Does not establish the cause of the earlier tracked-file failure, independently verify live SSO, or establish deployment readiness.",
+  "cause": "A passing test alone does not show whether the checks reject invalid inputs or preserve a failing test result.",
+  "decision": "Use controlled failure fixtures instead of running failure scenarios against a live database.",
+  "observed_result": "Local fixtures passed: the verifier detected missing, unmerged, non-regular, CRLF, missing-shebang, and invalid Bash cases. The wrapper refused the unsafe target fixture and preserved exit 42 while restoring the starting modes and leaving the index unchanged.",
+  "runs": [
+    "https://github.com/muliratendo/ai-umu-ac-ug/actions/runs/44343285933"
+  ]
+}

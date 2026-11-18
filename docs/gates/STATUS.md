@@ -17,7 +17,7 @@
 
 ## Tasks
 
-- [ ] Gate 1: `g1-ci` — IN_PROGRESS; requires positive, negative, regression, decision.
+- [x] Gate 1: `g1-ci` — COMPLETE; requires positive, negative, regression, decision.
 - [ ] Gate 1: `g1-signin` — REPORTED_PASS; requires positive, negative, regression, decision.
 - [ ] Gate 1: `g1-revoke` — REPORTED_PASS; requires positive, negative, regression, decision.
 - [ ] Gate 1: `g1-disable` — REPORTED_PASS; requires positive, negative, regression, decision.
@@ -44,3 +44,7 @@
 - 2026-11-18T10:15:11.621472+00:00 — g1-ci: negative/pass; docs/evidence/ci-preflight-negative-tests.json.
 - 2026-11-18T10:19:52.243926+00:00 — g1-browser: schedule_migration/pending; Moved Gate 1 → Gate 7 after Manus; legacy evidence preserved..
 - 2026-11-18T20:09:58.994365+00:00 — g1-ci: positive/pass; docs/evidence/ci-positive-e2ca1ef.json.
+- 2026-11-18T20:15:18.067254+00:00 — g1-ci: positive/pass; docs/evidence/ci-positive-e2ca1ef.json.
+- 2026-11-18T20:19:38.465676+00:00 — g1-ci: negative/pass; docs/evidence/ci-negative-e2ca1ef.json.
+- 2026-11-18T20:19:38.709564+00:00 — g1-ci: regression/pass; docs/evidence/ci-regression-e2ca1ef.json.
+- 2026-11-18T20:19:38.957334+00:00 — g1-ci: decision/pass; docs/evidence/ci-decision-e2ca1ef.json.
