@@ -30,6 +30,9 @@ jobs:
       - name: Test CI prerequisite diagnostics
         run: python3 -m unittest discover -s tests/maintenance -p 'test_ci_preflight.py' -v
 
+      - name: Test temporary MySQL script modes without a database
+        run: python3 -m unittest discover -s tests/maintenance -p 'test_mysql_regression_wrapper.py' -v
+
       - name: Check script prerequisites without chmod
         run: python3 scripts/maintenance/ci_preflight.py
 
