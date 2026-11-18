@@ -77,9 +77,7 @@ jobs:
         env:
           MYSQL_INIT_MYSQL_HOST: 127.0.0.1
           MYSQL_INIT_MYSQL_PORT: "3306"
-        run: |
-          set -euo pipefail
-          tests/infra/mysql-init-regression.sh
+        run: bash scripts/maintenance/run_mysql_regression_ci.sh
 
       - name: Hand off PHPUnit database credential
         working-directory: .
