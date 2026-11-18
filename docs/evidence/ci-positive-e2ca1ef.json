@@ -1,0 +1,13 @@
+{
+  "scope": "Positive CI verification on main at e2ca1efa58af6b26ea58850a26a425f6a7566580",
+  "cause": "The earlier CI evidence required revalidation. The cause of the earlier tracked-file failure is not established by these successful runs.",
+  "decision": "Record the verified workflow and step outcomes separately from SSO acceptance and the CI decision review.",
+  "result": "pass",
+  "observed_result": "Both workflows passed. Gate maintenance passed its fixtures, ledger and tracked-file checks. Foundation passed isolated MySQL initialization, credential handoff, PHP and frontend tests, and frontend build.",
+  "regression_test": "CI preflight diagnostics, MySQL wrapper fixtures, and isolated MySQL initialization checks.",
+  "limitations": "Step conclusions were verified; individual mode log lines, live SSO checks, and deployment readiness were not verified by this record.",
+  "runs": [
+    "https://github.com/muliratendo/ai-umu-ac-ug/actions/runs/44343285933",
+    "https://github.com/muliratendo/ai-umu-ac-ug/actions/runs/44343285174"
+  ]
+}

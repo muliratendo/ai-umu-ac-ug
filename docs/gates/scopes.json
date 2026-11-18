@@ -1,9 +1,14 @@
 {
-    "g1-ci": [
-      ".github/workflows/ci.yml",
-      "infra/local/mysql-init/01-create-testing-database.sh",
-      "tests/infra/mysql-init-regression.sh",
-      "scripts/maintenance/ci_preflight.py",
-      "tests/maintenance/test_ci_preflight.py"
-    ]
+  "g1-ci": [
+    ".github/workflows/ci.yml",
+    ".github/workflows/gate-maintenance.yml",
+    "infra/local/mysql-init/01-create-testing-database.sh",
+    "scripts/maintenance/ci_preflight.py",
+    "scripts/maintenance/gates_v2.py",
+    "scripts/maintenance/run_mysql_regression_ci.sh",
+    "tests/infra/mysql-init-regression.sh",
+    "tests/maintenance/test_ci_preflight.py",
+    "tests/maintenance/test_gates_v2.py",
+    "tests/maintenance/test_mysql_regression_wrapper.py"
+  ]
 }

@@ -43,10 +43,70 @@
       "kind": "schedule_migration",
       "result": "pending",
       "note": "Moved Gate 1 → Gate 7 after Manus; legacy evidence preserved."
+    },
+    {
+      "format": 2,
+      "at": "2026-11-18T20:09:58.994365+00:00",
+      "task": "g1-ci",
+      "kind": "positive",
+      "result": "pass",
+      "by": "muliratendo",
+      "evidence": "docs/evidence/ci-positive-e2ca1ef.json",
+      "evidence_sha256": "0564340dd8c13016ce9705e2b7cd372f41e564ced8c871428f3a08b76d6a90c3",
+      "observed_commit": "e2ca1efa58af6b26ea58850a26a425f6a7566580",
+      "fingerprint": "0863b4ae3d4e2e17e63cf62cb9962bbe97a5d0ad7ef7e3573d5718e88816d562"
+    },
+    {
+      "format": 2,
+      "at": "2026-11-18T20:15:18.067254+00:00",
+      "task": "g1-ci",
+      "kind": "positive",
+      "result": "pass",
+      "by": "muliratendo",
+      "evidence": "docs/evidence/ci-positive-e2ca1ef.json",
+      "evidence_sha256": "0564340dd8c13016ce9705e2b7cd372f41e564ced8c871428f3a08b76d6a90c3",
+      "observed_commit": "18ff4f15bb79f3b24abf3af412f06aef41ed0f8b",
+      "fingerprint": "7445e982c43cdee85f929a5818ab1ad527e1ebecd63f93bb3b896ea0a98b8d4f"
+    },
+    {
+      "format": 2,
+      "at": "2026-11-18T20:19:38.465676+00:00",
+      "task": "g1-ci",
+      "kind": "negative",
+      "result": "pass",
+      "by": "muliratendo",
+      "evidence": "docs/evidence/ci-negative-e2ca1ef.json",
+      "evidence_sha256": "a2e6c47902e2fc6aa76ee65c44e05381e033a8f723d83a6a94ce4806ed0ee6ad",
+      "observed_commit": "18ff4f15bb79f3b24abf3af412f06aef41ed0f8b",
+      "fingerprint": "7445e982c43cdee85f929a5818ab1ad527e1ebecd63f93bb3b896ea0a98b8d4f"
+    },
+    {
+      "format": 2,
+      "at": "2026-11-18T20:19:38.709564+00:00",
+      "task": "g1-ci",
+      "kind": "regression",
+      "result": "pass",
+      "by": "muliratendo",
+      "evidence": "docs/evidence/ci-regression-e2ca1ef.json",
+      "evidence_sha256": "e0c7367954fe6ec2dc13894109f08bc8c19cc74b35d9f7e245a05ed5ec8d2f44",
+      "observed_commit": "18ff4f15bb79f3b24abf3af412f06aef41ed0f8b",
+      "fingerprint": "7445e982c43cdee85f929a5818ab1ad527e1ebecd63f93bb3b896ea0a98b8d4f"
+    },
+    {
+      "format": 2,
+      "at": "2026-11-18T20:19:38.957334+00:00",
+      "task": "g1-ci",
+      "kind": "decision",
+      "result": "pass",
+      "by": "muliratendo",
+      "evidence": "docs/evidence/ci-decision-e2ca1ef.json",
+      "evidence_sha256": "87ee98733f48d0eabc66fdc7c9d5008a93f503c98e0679445d29b6a8cc0adcab",
+      "observed_commit": "18ff4f15bb79f3b24abf3af412f06aef41ed0f8b",
+      "fingerprint": "7445e982c43cdee85f929a5818ab1ad527e1ebecd63f93bb3b896ea0a98b8d4f"
     }
   ],
   "view_hashes": {
-    "docs/gates/STATUS.md": "982fc36531a05d876d4446f8ecbf8da85877d21470e8008fe1b228149617a855",
+    "docs/gates/STATUS.md": "59da0c9e327e5d39e19283eee4aefd8248ba6b4a790ad86692ec7681a5baa314",
     "docs/gates/RESPONSE_STATUS.md": "bf2b158f51e5461c6e2fb73b201a0245a8881fac297a5774eef3700192e15c56"
   }
 }
