@@ -3,7 +3,7 @@
 
 import argparse
 import json
-import os
+import stat
 from pathlib import Path
 import shutil
 import subprocess
@@ -15,7 +15,7 @@ FILES = (
 )
 
 
-def inspect(root: Path) -> list[dict]:
+def inspect(root: Path, modes: list | None = None) -> list[dict]:
     findings = []
 
     def add(code, path, message):
@@ -33,41 +33,68 @@ def inspect(root: Path) -> list[dict]:
 
     for relative in FILES:
         path = root / relative
+        reported = {
+            "path": relative,
+            "committed": None,
+            "index": [],
+            "worktree": None,
+        }
+        if modes is not None:
+            modes.append(reported)
 
-        if path.is_symlink() or not path.is_file():
-            add("CI_SCRIPT_MISSING", relative,
-                "Expected a regular, non-symlink script.")
-            continue
+        def entries(*args):
+            return subprocess.run(
+                [git, "-C", str(root), *args, "--", relative],
+                capture_output=True, text=True, check=False,
+            )
 
-        result = subprocess.run(
-            [git, "-C", str(root), "ls-files", "--stage", "--", relative],
-            capture_output=True,
-            text=True,
-            check=False,
-        )
+        tree = entries("ls-tree", "HEAD")
+        if tree.returncode:
+            add("CI_TREE_READ_FAILED", relative, "Cannot inspect HEAD.")
+        elif not tree.stdout:
+            add("CI_COMMITTED_MISSING", relative, "Script is absent from HEAD.")
+        else:
+            reported["committed"] = tree.stdout.split()[0]
+            if reported["committed"] not in {"100644", "100755"}:
+                add("CI_COMMITTED_MODE", relative, "Expected a regular Git file.")
 
-        if result.returncode != 0:
+        index = entries("ls-files", "--stage")
+        if index.returncode:
             add("CI_INDEX_READ_FAILED", relative, "Cannot inspect Git index.")
         else:
-            entries = result.stdout.splitlines()
-            if len(entries) != 1:
-                add("CI_SCRIPT_NOT_TRACKED", relative,
-                    "Expected exactly one tracked index entry.")
-            else:
-                fields = entries[0].split()
-                if len(fields) < 3 or fields[2] != "0":
-                    add("CI_INDEX_CONFLICT", relative,
-                        "Index entry is invalid or unmerged.")
-                elif fields[0] != "100755":
-                    add("CI_INDEX_MODE", relative,
-                        "Committed/index executable mode must be 100755.")
+            metadata = [
+                line.partition(chr(9))[0].split()
+                for line in index.stdout.splitlines()
+            ]
+            reported["index"] = [
+                {"mode": row[0], "stage": row[2]}
+                for row in metadata if len(row) == 3
+            ]
+            if not metadata:
+                add("CI_SCRIPT_NOT_TRACKED", relative, "No index entry.")
+            elif len(metadata) != 1 or len(metadata[0]) != 3 or metadata[0][2] != "0":
+                add("CI_INDEX_CONFLICT", relative, "Index entry is invalid or unmerged.")
+            elif metadata[0][0] not in {"100644", "100755"}:
+                add("CI_INDEX_MODE", relative, "Expected a regular Git file.")
 
-        if not os.access(path, os.X_OK):
-            add("CI_WORKTREE_MODE", relative,
-                "Working-tree script is not executable.")
+        try:
+            info = path.lstat()
+        except FileNotFoundError:
+            add("CI_SCRIPT_MISSING", relative, "Script is missing from the worktree.")
+            continue
+        except OSError:
+            add("CI_SCRIPT_READ_FAILED", relative, "Cannot inspect worktree script.")
+            continue
 
-        data = path.read_bytes()
-
+        reported["worktree"] = f"{stat.S_IMODE(info.st_mode):04o}"
+        if not stat.S_ISREG(info.st_mode) or path.resolve() != path:
+            add("CI_SCRIPT_NOT_REGULAR", relative, "Expected a regular, non-symlink script.")
+            continue
+        try:
+            data = path.read_bytes()
+        except OSError:
+            add("CI_SCRIPT_READ_FAILED", relative, "Cannot read worktree script.")
+            continue
         if b"\r" in data:
             add("CI_LINE_ENDINGS", relative, "Script must use LF line endings.")
 
@@ -93,11 +120,13 @@ def main():
     parser.add_argument("--report")
     args = parser.parse_args()
 
-    findings = inspect(Path(args.root).resolve())
+    modes = []
+    findings = inspect(Path(args.root).resolve(), modes)
     report = {
         "schema": 1,
         "check": "ci-preflight",
         "status": "fail" if findings else "pass",
+        "modes": modes,
         "findings": findings,
     }
     encoded = json.dumps(report, indent=2) + "\n"
