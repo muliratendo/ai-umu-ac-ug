@@ -13,6 +13,8 @@ jobs:
   verify-gates:
     runs-on: ubuntu-latest
     timeout-minutes: 5
+    env:
+      PYTHONDONTWRITEBYTECODE: "1"
     steps:
       - name: Check out source
         uses: actions/checkout@v4
@@ -35,6 +37,11 @@ jobs:
 
       - name: Verify committed gate documents
         run: python3 scripts/maintenance/gates_v2.py check
+      
+      - name: Verify no tracked changes were made
+        run: |
+          git diff --name-status HEAD --
+          git diff --exit-code HEAD --
 
       - name: Verify no tracked changes were made
         run: git diff --exit-code HEAD --
