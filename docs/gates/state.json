@@ -43,10 +43,22 @@
       "kind": "schedule_migration",
       "result": "pending",
       "note": "Moved Gate 1 → Gate 7 after Manus; legacy evidence preserved."
+    },
+    {
+      "format": 2,
+      "at": "2026-11-18T20:09:58.994365+00:00",
+      "task": "g1-ci",
+      "kind": "positive",
+      "result": "pass",
+      "by": "muliratendo",
+      "evidence": "docs/evidence/ci-positive-e2ca1ef.json",
+      "evidence_sha256": "0564340dd8c13016ce9705e2b7cd372f41e564ced8c871428f3a08b76d6a90c3",
+      "observed_commit": "e2ca1efa58af6b26ea58850a26a425f6a7566580",
+      "fingerprint": "0863b4ae3d4e2e17e63cf62cb9962bbe97a5d0ad7ef7e3573d5718e88816d562"
     }
   ],
   "view_hashes": {
-    "docs/gates/STATUS.md": "982fc36531a05d876d4446f8ecbf8da85877d21470e8008fe1b228149617a855",
+    "docs/gates/STATUS.md": "56841446df30c9a7e19d813ff0144e3ed8656dc8c1f5eed09dd31024413d9cb2",
     "docs/gates/RESPONSE_STATUS.md": "bf2b158f51e5461c6e2fb73b201a0245a8881fac297a5774eef3700192e15c56"
   }
 }
