@@ -1,0 +1,52 @@
+{
+  "schema": 2,
+  "events": [
+    {
+      "id": "initial-g1-signin",
+      "at": "2026-11-18T10:11:22.311230+00:00",
+      "task": "g1-signin",
+      "kind": "reported",
+      "result": "pass",
+      "by": "user report; not independently reproduced"
+    },
+    {
+      "id": "initial-g1-revoke",
+      "at": "2026-11-18T10:11:22.312045+00:00",
+      "task": "g1-revoke",
+      "kind": "reported",
+      "result": "pass",
+      "by": "user report; not independently reproduced"
+    },
+    {
+      "id": "initial-g1-disable",
+      "at": "2026-11-18T10:11:22.312056+00:00",
+      "task": "g1-disable",
+      "kind": "reported",
+      "result": "pass",
+      "by": "user report; not independently reproduced"
+    },
+    {
+      "id": "event-0004",
+      "at": "2026-11-18T10:15:11.621472+00:00",
+      "by": "tendo_mulira",
+      "head": "9ef7d0eb8b69dfd648acff83232ca06d2b3aa6e5",
+      "snapshot": "8637a92f40c63c2579713473d6934c243e3f486d250d37ca6ef6fd4b63eb6be1",
+      "evidence": "docs/evidence/ci-preflight-negative-tests.json",
+      "evidence_sha256": "67df9867d3f4abbe2da60789802ab0dc3188df9b499017ae7c73735376352f0f",
+      "task": "g1-ci",
+      "kind": "negative",
+      "result": "pass"
+    },
+    {
+      "at": "2026-11-18T10:19:52.243926+00:00",
+      "task": "g1-browser",
+      "kind": "schedule_migration",
+      "result": "pending",
+      "note": "Moved Gate 1 → Gate 7 after Manus; legacy evidence preserved."
+    }
+  ],
+  "view_hashes": {
+    "docs/gates/STATUS.md": "982fc36531a05d876d4446f8ecbf8da85877d21470e8008fe1b228149617a855",
+    "docs/gates/RESPONSE_STATUS.md": "bf2b158f51e5461c6e2fb73b201a0245a8881fac297a5774eef3700192e15c56"
+  }
+}

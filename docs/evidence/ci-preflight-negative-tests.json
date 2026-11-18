@@ -1,0 +1,11 @@
+{
+    "scope": "Local CI script prerequisite checks; not the complete CI workflow",
+    "cause": "Git index entries for the two shell scripts previously used mode 100644.",
+    "decision": "Restore executable index modes and verify prerequisites without repairing them inside CI.",
+    "result": "pass",
+    "command": "python3 -m unittest discover -s tests/maintenance -p test_ci_preflight.py",
+    "exit_code": 0,
+    "observed_result": "Six tests passed. Separate preflight execution returned status pass with no findings.",
+    "regression_test": "tests/maintenance/test_ci_preflight.py",
+    "limitations": "Does not prove MySQL initializer correctness or a successful GitHub Actions run."
+  }

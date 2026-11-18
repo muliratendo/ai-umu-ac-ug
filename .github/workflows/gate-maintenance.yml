@@ -1,0 +1,40 @@
+name: Gate maintenance
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify-gates:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Test ledger diagnostics and schedule migration
+        run: python3 -m unittest discover -s tests/maintenance -p 'test_gates_v2.py' -v
+
+      - name: Test CI prerequisite diagnostics
+        run: python3 -m unittest discover -s tests/maintenance -p 'test_ci_preflight.py' -v
+
+      - name: Check script prerequisites without chmod
+        run: python3 scripts/maintenance/ci_preflight.py
+
+      - name: Verify committed gate documents
+        run: python3 scripts/maintenance/gates_v2.py check
+
+      - name: Verify no tracked changes were made
+        run: git diff --exit-code HEAD --

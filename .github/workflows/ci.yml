@@ -54,21 +54,32 @@ jobs:
       - name: Check platform requirements
         run: composer check-platform-reqs
 
-      - name: Verify committed MySQL script modes
+      - name: Test CI prerequisite diagnostics
         working-directory: .
         shell: bash
         run: |
-          chmod u+x -- \
-            tests/infra/mysql-init-regression.sh \
-            infra/local/mysql-init/01-create-testing-database.sh
-          tests/infra/mysql-init-regression.sh
-
+          set -euo pipefail
+          python3 -m unittest discover \
+            -s tests/maintenance \
+            -p 'test_ci_preflight.py'
+      
+      - name: Verify committed MySQL script prerequisites
+        working-directory: .
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 scripts/maintenance/ci_preflight.py \
+            --report .quality/evidence/ci-preflight.json
+      
       - name: Execute isolated MySQL initialization checks
         working-directory: .
+        shell: bash
         env:
           MYSQL_INIT_MYSQL_HOST: 127.0.0.1
-          MYSQL_INIT_MYSQL_PORT: 3306
-        run: tests/infra/mysql-init-regression.sh
+          MYSQL_INIT_MYSQL_PORT: "3306"
+        run: |
+          set -euo pipefail
+          tests/infra/mysql-init-regression.sh
 
       - name: Hand off PHPUnit database credential
         working-directory: .
