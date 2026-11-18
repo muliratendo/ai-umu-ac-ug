@@ -1,0 +1,12 @@
+{
+  "scope": "g1-revoke: decision evidence for Gate 1",
+  "cause": "Gate 1 requires live observations and separate automated verification.",
+  "decision": "Accept operator-reported staging passes with unknown deployed revision, alongside automated regression evidence tied separately to the tested source. This does not approve deployment, administrative access, or browser acceptance. Carry low-bandwidth sign-in to Gate 7 and safe attempt limiting to Gate 8.",
+  "result": "pass",
+  "observed_result": "The operator explicitly signed off on this closure basis.",
+  "regression_test": "GoogleSsoTest: revoked approval blocks relogin and existing access. SsoReactivationTest: reactivation restores only the original redeemed Google identity. AuthAcceptanceTest: event-write failure rolls back revocation clear.",
+  "limitations": "Staging deployed revision is unknown. The source SHA and CI run identify automated verification only. The full PHP run reported 54 passes and two skips; no skipped case is claimed here.",
+  "automated_source_sha": "fde4a3d6144a32a1eea65733decc23a7c0b930f6",
+  "automated_run": "https://github.com/muliratendo/ai-umu-ac-ug/actions/runs/44394813502",
+  "live_deployed_revision": "unknown"
+}
