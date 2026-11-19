@@ -4,7 +4,7 @@
 
 | Gate | Work | Status |
 |---|---|---|
-| 1 | Complete current SSO and CI verification | COMPLETE |
+| 1 | Complete current SSO and CI verification | IN_PROGRESS |
 | 2 | Approve separate administrative grants, grant/revoke authority, publishing and audit policy | AWAITING_APPROVAL |
 | 3 | Test protected reads and writes with Twill disabled | BLOCKED |
 | 4 | Enable and test Twill locally only | BLOCKED |
@@ -17,7 +17,7 @@
 
 ## Tasks
 
-- [x] Gate 1: `g1-ci` — COMPLETE; requires positive, negative, regression, decision.
+- [ ] Gate 1: `g1-ci` — REVALIDATION_REQUIRED; requires positive, negative, regression, decision.
 - [x] Gate 1: `g1-signin` — COMPLETE; requires positive, negative, regression, decision.
 - [x] Gate 1: `g1-revoke` — COMPLETE; requires positive, negative, regression, decision.
 - [x] Gate 1: `g1-disable` — COMPLETE; requires positive, negative, regression, decision.
