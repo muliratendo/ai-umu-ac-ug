@@ -247,10 +247,58 @@
       "evidence_sha256": "cd6628ced6f56d1260ce746d40153a6b2c02253a9d01a460798fe69b43485460",
       "observed_commit": "fde4a3d6144a32a1eea65733decc23a7c0b930f6",
       "fingerprint": "00198252a043e3bab0fe9b005403800f96bac9f5a38035379bbc9fffe550f16f"
+    },
+    {
+      "format": 2,
+      "at": "2026-11-19T09:22:49.327968+00:00",
+      "task": "g1-ci",
+      "kind": "positive",
+      "result": "pass",
+      "by": "Mulira Tendo",
+      "evidence": "docs/evidence/g1-ci-86838e0-positive.json",
+      "evidence_sha256": "72065a3cb23298ea248067ce3196b4d5ff9d54f1570556a2a9144510a90c37dc",
+      "observed_commit": "86838e07121285156a5726842387b44e053a8ffb",
+      "fingerprint": "dca89de20eccff50746caa0e8d03aacbf661dae0f761ff84c5fb0e4fb9be67e2"
+    },
+    {
+      "format": 2,
+      "at": "2026-11-19T09:22:49.856318+00:00",
+      "task": "g1-ci",
+      "kind": "negative",
+      "result": "pass",
+      "by": "Mulira Tendo",
+      "evidence": "docs/evidence/g1-ci-86838e0-negative.json",
+      "evidence_sha256": "cf69fbbc2bf2eab6eddea6781524763f058a3f332d24d6efb1e4a154dd063fc2",
+      "observed_commit": "86838e07121285156a5726842387b44e053a8ffb",
+      "fingerprint": "dca89de20eccff50746caa0e8d03aacbf661dae0f761ff84c5fb0e4fb9be67e2"
+    },
+    {
+      "format": 2,
+      "at": "2026-11-19T09:22:50.448017+00:00",
+      "task": "g1-ci",
+      "kind": "regression",
+      "result": "pass",
+      "by": "Mulira Tendo",
+      "evidence": "docs/evidence/g1-ci-86838e0-regression.json",
+      "evidence_sha256": "370121af15debd499388c87de15b1b003f7901c21bb11e0ab149c4a18210831c",
+      "observed_commit": "86838e07121285156a5726842387b44e053a8ffb",
+      "fingerprint": "dca89de20eccff50746caa0e8d03aacbf661dae0f761ff84c5fb0e4fb9be67e2"
+    },
+    {
+      "format": 2,
+      "at": "2026-11-19T09:22:50.954812+00:00",
+      "task": "g1-ci",
+      "kind": "decision",
+      "result": "pass",
+      "by": "Mulira Tendo",
+      "evidence": "docs/evidence/g1-ci-86838e0-decision.json",
+      "evidence_sha256": "d62ddf6054650a8de0ab9a4d0bf77a888830c7306ed89d6b9e4fb09440dab792",
+      "observed_commit": "86838e07121285156a5726842387b44e053a8ffb",
+      "fingerprint": "dca89de20eccff50746caa0e8d03aacbf661dae0f761ff84c5fb0e4fb9be67e2"
     }
   ],
   "view_hashes": {
-    "docs/gates/STATUS.md": "102be412f7be5d2f675b4a716bb409daee00d2127356146e9fdce45954df86dc",
-    "docs/gates/RESPONSE_STATUS.md": "bf2b158f51e5461c6e2fb73b201a0245a8881fac297a5774eef3700192e15c56"
+    "docs/gates/STATUS.md": "5820904b210fedea3bea7c7d750e50cdd0c53926db35f41933897a9741f6e0dc",
+    "docs/gates/RESPONSE_STATUS.md": "f2de9920bbcba7db51906d013cf9588fe2e2f7fd1665100f69f71593b62c6a92"
   }
 }

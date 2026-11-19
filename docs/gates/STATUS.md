@@ -4,9 +4,9 @@
 
 | Gate | Work | Status |
 |---|---|---|
-| 1 | Complete current SSO and CI verification | IN_PROGRESS |
+| 1 | Complete current SSO and CI verification | COMPLETE |
 | 2 | Approve separate administrative grants, grant/revoke authority, publishing and audit policy | AWAITING_APPROVAL |
-| 3 | Test protected reads and writes with Twill disabled | BLOCKED |
+| 3 | Test protected reads and writes with Twill disabled | IN_PROGRESS |
 | 4 | Enable and test Twill locally only | BLOCKED |
 | 5 | Deliver the draft, publish and unpublish news workflow | BLOCKED |
 | 6 | Separately approve and implement leadership content | BLOCKED |
@@ -17,7 +17,7 @@
 
 ## Tasks
 
-- [ ] Gate 1: `g1-ci` — REVALIDATION_REQUIRED; requires positive, negative, regression, decision.
+- [x] Gate 1: `g1-ci` — COMPLETE; requires positive, negative, regression, decision.
 - [x] Gate 1: `g1-signin` — COMPLETE; requires positive, negative, regression, decision.
 - [x] Gate 1: `g1-revoke` — COMPLETE; requires positive, negative, regression, decision.
 - [x] Gate 1: `g1-disable` — COMPLETE; requires positive, negative, regression, decision.
@@ -60,3 +60,7 @@
 - 2026-11-18T21:53:13.880550+00:00 — g1-disable: negative/pass; docs/evidence/g1-disable-negative.json.
 - 2026-11-18T21:53:15.318218+00:00 — g1-disable: regression/pass; docs/evidence/g1-disable-regression.json.
 - 2026-11-18T21:53:16.159116+00:00 — g1-disable: decision/pass; docs/evidence/g1-disable-decision.json.
+- 2026-11-19T09:22:49.327968+00:00 — g1-ci: positive/pass; docs/evidence/g1-ci-86838e0-positive.json.
+- 2026-11-19T09:22:49.856318+00:00 — g1-ci: negative/pass; docs/evidence/g1-ci-86838e0-negative.json.
+- 2026-11-19T09:22:50.448017+00:00 — g1-ci: regression/pass; docs/evidence/g1-ci-86838e0-regression.json.
+- 2026-11-19T09:22:50.954812+00:00 — g1-ci: decision/pass; docs/evidence/g1-ci-86838e0-decision.json.
