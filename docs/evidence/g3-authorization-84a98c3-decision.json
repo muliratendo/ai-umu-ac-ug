@@ -1,0 +1,11 @@
+{
+  "scope": "g3-authorization: decision evidence for the private-note fixture",
+  "cause": "Verify protected reads and writes without enabling Twill.",
+  "decision": "Accept Gate 3 technical verification only: real Laravel authorization middleware and an application ability were exercised with Twill disabled on test-only routes. Gate 2 approval remains required for real privilege assignments and deployment.",
+  "result": "pass",
+  "observed_result": "Accept Gate 3 technical verification only: real Laravel authorization middleware and an application ability were exercised with Twill disabled on test-only routes. Gate 2 approval remains required for real privilege assignments and deployment.",
+  "regression_test": "Foundation CI passed all three PrivateNoteAuthorizationTest cases and reported PASS for AuthAcceptanceTest, DisabledRoutesTest, GoogleSsoTest, and SsoReactivationTest. Full PHP summary: 57 passed, 2 skipped, 432 assertions. Neither skipped test is claimed as a pass.",
+  "limitations": "Routes, accounts, grants, and note storage were test-only; grants and storage were in memory. This did not verify Google SSO on the fixture routes, production privilege assignments, database-backed revocation, or deployment readiness.",
+  "tested_revision": "84a98c3a89ba7efa77c6269909ae216f142fbe9c",
+  "foundation_run": "https://github.com/muliratendo/ai-umu-ac-ug/actions/runs/44498361658"
+}
