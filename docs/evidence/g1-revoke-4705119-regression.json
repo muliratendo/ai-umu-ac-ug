@@ -1,0 +1,13 @@
+{
+  "scope": "g1-revoke: regression evidence for Gate 1",
+  "cause": "Gate 1 requires live observations and separate automated verification.",
+  "decision": "Operator sign-off approved carrying forward the historical approved-staging observations alongside fresh automated verification. The staging observations were not repeated for PR #7 and the deployed revision remains unknown. This does not approve deployment, administrative access, or browser acceptance. Low-bandwidth sign-in remains with Gate 7 and safe attempt limiting with Gate 8.",
+  "result": "pass",
+  "observed_result": "GoogleSsoTest: revoked approval blocks relogin and existing access. SsoReactivationTest: reactivation restores only the original redeemed Google identity. AuthAcceptanceTest: event-write failure rolls back revocation clear.",
+  "regression_test": "GoogleSsoTest: revoked approval blocks relogin and existing access. SsoReactivationTest: reactivation restores only the original redeemed Google identity. AuthAcceptanceTest: event-write failure rolls back revocation clear.",
+  "limitations": "Historical staging observations were operator-reported. No new staging run was performed for PR #7. The source SHA and run identify automated verification only. Foundation push run 44512141949 on 47051194125530c62b4301620f24af31a2f49402: 57 passed, 2 skipped, 432 assertions. Both skips were opt-in AuthConcurrencyAcceptanceTest cases; neither is claimed as a pass.",
+  "automated_source_sha": "47051194125530c62b4301620f24af31a2f49402",
+  "automated_run": "https://github.com/muliratendo/ai-umu-ac-ug/actions/runs/44512141949",
+  "live_deployed_revision": "unknown",
+  "prior_evidence": "docs/evidence/g1-revoke-regression.json"
+}

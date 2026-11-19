@@ -1,0 +1,12 @@
+{
+  "scope": "g3-authorization: decision evidence for the private-note fixture",
+  "cause": "Verify protected reads and writes without enabling Twill.",
+  "decision": "Technical sign-off approved revalidation of the test-only private-note fixture with Twill disabled by test configuration. This does not approve real privileges or deployment, or verify database-backed revocation.",
+  "result": "pass",
+  "observed_result": "Technical sign-off approved revalidation of the test-only private-note fixture with Twill disabled by test configuration. This does not approve real privileges or deployment, or verify database-backed revocation.",
+  "regression_test": "All three PrivateNoteAuthorizationTest cases passed. AuthAcceptanceTest, DisabledRoutesTest, GoogleSsoTest, and SsoReactivationTest also passed. Foundation push run 44512141949 on 47051194125530c62b4301620f24af31a2f49402: 57 passed, 2 skipped, 432 assertions. Both skips were opt-in AuthConcurrencyAcceptanceTest cases; neither is claimed as a pass.",
+  "limitations": "Routes, accounts, grants, and note storage were test-only; grants and storage were in memory. This did not verify Google SSO on the fixture routes, production privilege assignments, database-backed revocation, or deployment readiness. PHPUnit configured APP_ENV=testing; the CI test step showed no override, and the provider requires local mode and explicit opt-in. The log does not contain a separate runtime assertion that the provider was absent.",
+  "tested_revision": "47051194125530c62b4301620f24af31a2f49402",
+  "foundation_run": "https://github.com/muliratendo/ai-umu-ac-ug/actions/runs/44512141949",
+  "prior_evidence": "docs/evidence/g3-authorization-84a98c3-decision.json"
+}
