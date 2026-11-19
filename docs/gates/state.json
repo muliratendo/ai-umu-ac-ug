@@ -295,10 +295,58 @@
       "evidence_sha256": "d62ddf6054650a8de0ab9a4d0bf77a888830c7306ed89d6b9e4fb09440dab792",
       "observed_commit": "86838e07121285156a5726842387b44e053a8ffb",
       "fingerprint": "dca89de20eccff50746caa0e8d03aacbf661dae0f761ff84c5fb0e4fb9be67e2"
+    },
+    {
+      "format": 2,
+      "at": "2026-11-19T09:43:22.884287+00:00",
+      "task": "g3-authorization",
+      "kind": "positive",
+      "result": "pass",
+      "by": "Mulira Tendo",
+      "evidence": "docs/evidence/g3-authorization-84a98c3-positive.json",
+      "evidence_sha256": "03eefa332b6f071995ff34f9b7f6a1fbe29dc9de18b33019f70b4358261e5e97",
+      "observed_commit": "84a98c3a89ba7efa77c6269909ae216f142fbe9c",
+      "fingerprint": "c8c3edb1f1a94d35c2d517636d559347ccfc4c9f95469e91187075bb49344171"
+    },
+    {
+      "format": 2,
+      "at": "2026-11-19T09:43:23.702331+00:00",
+      "task": "g3-authorization",
+      "kind": "negative",
+      "result": "pass",
+      "by": "Mulira Tendo",
+      "evidence": "docs/evidence/g3-authorization-84a98c3-negative.json",
+      "evidence_sha256": "dd6ec4e0486e4d25436d1f52455a977b4d7796f95ec552215b763d6d817abaa4",
+      "observed_commit": "84a98c3a89ba7efa77c6269909ae216f142fbe9c",
+      "fingerprint": "c8c3edb1f1a94d35c2d517636d559347ccfc4c9f95469e91187075bb49344171"
+    },
+    {
+      "format": 2,
+      "at": "2026-11-19T09:43:24.529116+00:00",
+      "task": "g3-authorization",
+      "kind": "regression",
+      "result": "pass",
+      "by": "Mulira Tendo",
+      "evidence": "docs/evidence/g3-authorization-84a98c3-regression.json",
+      "evidence_sha256": "e1e9527d001554c0b06cfcfdcbf82e9a085bea76186aee3ed7f8e864a6afb1b8",
+      "observed_commit": "84a98c3a89ba7efa77c6269909ae216f142fbe9c",
+      "fingerprint": "c8c3edb1f1a94d35c2d517636d559347ccfc4c9f95469e91187075bb49344171"
+    },
+    {
+      "format": 2,
+      "at": "2026-11-19T09:43:25.357354+00:00",
+      "task": "g3-authorization",
+      "kind": "decision",
+      "result": "pass",
+      "by": "Mulira Tendo",
+      "evidence": "docs/evidence/g3-authorization-84a98c3-decision.json",
+      "evidence_sha256": "d9da82038d2bf25f1ba4073051f9a20d8692bcd84b803db29afadafdd323c2bd",
+      "observed_commit": "84a98c3a89ba7efa77c6269909ae216f142fbe9c",
+      "fingerprint": "c8c3edb1f1a94d35c2d517636d559347ccfc4c9f95469e91187075bb49344171"
     }
   ],
   "view_hashes": {
-    "docs/gates/STATUS.md": "5820904b210fedea3bea7c7d750e50cdd0c53926db35f41933897a9741f6e0dc",
-    "docs/gates/RESPONSE_STATUS.md": "f2de9920bbcba7db51906d013cf9588fe2e2f7fd1665100f69f71593b62c6a92"
+    "docs/gates/STATUS.md": "f07d85cc1333b1b92b8860b0006fd697d6404ba88274a8faaf18d1dd7b9b7e30",
+    "docs/gates/RESPONSE_STATUS.md": "8925db4d2c14af3cc0ed06579064b959074b4883bb4ed008b5a097868f1893f0"
   }
 }
