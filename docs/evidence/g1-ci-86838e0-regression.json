@@ -1,0 +1,15 @@
+{
+  "scope": "g1-ci regression revalidation for the Gate 3 dependency change",
+  "cause": "Editing the scoped gates_v2.py invalidated the prior g1-ci fingerprint.",
+  "decision": "Revalidate g1-ci for the changed ledger script. Gate 3 technical verification may begin after Gate 1 completes. Gate 2 approval is still required for real privilege assignments and deployment; Gates 4–8 retain their cumulative prerequisites. Keep Twill disabled for Gate 3.",
+  "result": "pass",
+  "observed_result": "Local, revision-pinned test called documents() with mocked task_status(): stale g1-ci kept Gate 3 BLOCKED; completed Gate 1 let Gate 3 become IN_PROGRESS while Gate 2 was AWAITING_APPROVAL; simulated Gate 3 completion left Gates 4–8 BLOCKED while Gate 2 was pending. All three cases passed.",
+  "regression_test": "Local, revision-pinned test called documents() with mocked task_status(): stale g1-ci kept Gate 3 BLOCKED; completed Gate 1 let Gate 3 become IN_PROGRESS while Gate 2 was AWAITING_APPROVAL; simulated Gate 3 completion left Gates 4–8 BLOCKED while Gate 2 was pending. All three cases passed.",
+  "limitations": "The focused fixture ran locally, not in GitHub Actions. It tested ledger rendering with simulated task statuses, not application authorization. No staging retest, policy approval, or deployment.",
+  "tested_revision": "86838e07121285156a5726842387b44e053a8ffb",
+  "ci_runs": {
+    "foundation_push": "https://github.com/muliratendo/ai-umu-ac-ug/actions/runs/44495294455",
+    "foundation_pull_request": "https://github.com/muliratendo/ai-umu-ac-ug/actions/runs/44495306669",
+    "gate_maintenance_pull_request": "https://github.com/muliratendo/ai-umu-ac-ug/actions/runs/44495306662"
+  }
+}

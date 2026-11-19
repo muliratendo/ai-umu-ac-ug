@@ -232,16 +232,24 @@ def documents(root, state):
     previous_complete = True
     for number, label in enumerate(LABELS, 1):
         values = [statuses[t] for t, (n, _) in TASKS.items() if n == number]
+        # Gate 3 may verify authorization without Gate 2 policy approval.
+        # Keep the cumulative prerequisite for every later gate.
+        prerequisites_complete = previous_complete
+        if number == 3:
+            prerequisites_complete = all(
+                statuses[task] == "COMPLETE"
+                for task, (gate, _) in TASKS.items() if gate == 1
+            )
         if number == 2 and statuses["g2-policy"] != "COMPLETE":
             status = "FAILED" if "FAILED" in values else "AWAITING_APPROVAL"
-        elif not previous_complete:
+        elif not prerequisites_complete:
             status = "BLOCKED"
         elif "FAILED" in values:
             status = "FAILED"
         elif all(value == "COMPLETE" for value in values):
             status = "COMPLETE"
         else:
-            status = "IN_PROGRESS" if number == 1 else "PENDING"
+            status = "IN_PROGRESS" if number in (1, 3) else "PENDING"
         table += f"| {number} | {label} | {status} |\n"
         previous_complete = previous_complete and status == "COMPLETE"
 
