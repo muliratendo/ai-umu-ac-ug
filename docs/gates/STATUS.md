@@ -23,7 +23,7 @@
 - [x] Gate 1: `g1-disable` — COMPLETE; requires positive, negative, regression, decision.
 - [ ] Gate 2: `g2-policy` — PENDING; requires approval, negative, decision.
 - [x] Gate 3: `g3-authorization` — COMPLETE; requires positive, negative, regression, decision.
-- [ ] Gate 4: `g4-ghost-local` — PENDING; requires positive, negative, regression, decision.
+- [x] Gate 4: `g4-ghost-local` — COMPLETE; requires positive, negative, regression, decision.
 - [ ] Gate 5: `g5-ghost-editorial` — PENDING; requires positive, negative, regression, decision.
 - [ ] Gate 6: `g6-approval` — PENDING; requires approval, decision.
 - [ ] Gate 6: `g6-leadership` — PENDING; requires positive, negative, regression, decision.
@@ -72,3 +72,7 @@
 - 2026-11-24T06:18:39.365812+00:00 — g1-ci: negative/pass; docs/evidence/g1-ci-ghost-6fca1b9-negative.json.
 - 2026-11-24T06:18:40.741737+00:00 — g1-ci: regression/pass; docs/evidence/g1-ci-ghost-6fca1b9-regression.json.
 - 2026-11-24T06:18:42.059384+00:00 — g1-ci: decision/pass; docs/evidence/g1-ci-ghost-6fca1b9-decision.json.
+- 2026-11-24T13:50:32.341275+00:00 — g4-ghost-local: positive/pass; docs/evidence/g4-ghost-local-positive-2026-11-24.json.
+- 2026-11-24T13:57:59.273634+00:00 — g4-ghost-local: negative/pass; docs/evidence/g4-ghost-local-negative-2026-11-24.json.
+- 2026-11-24T14:02:11.933920+00:00 — g4-ghost-local: regression/pass; docs/evidence/g4-ghost-local-regression-2026-11-24.json.
+- 2026-11-24T14:20:57.711685+00:00 — g4-ghost-local: decision/pass; docs/evidence/g4-ghost-local-decision-2026-11-24.json.

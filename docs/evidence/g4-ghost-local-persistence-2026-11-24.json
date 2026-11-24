@@ -1,0 +1,64 @@
+{
+  "scope": "Supplementary Ghost content and database persistence evidence.",
+  "cause": "Verify persistence across replacement of Ghost and its database container.",
+  "decision": "Retain as supporting evidence; no overall task decision or approval.",
+  "result": "pass",
+  "observed_result": "Expected named content and database mounts verified.\nBoth containers replaced with the same volume mounts.\nUnique content marker survived container recreation.\nSite UUID and existing post identity fingerprint unchanged.\nPublication recovered through the proxy with HTTP 200.\nFull routing check passed after recreation.\nOnly the unique test marker was removed.",
+  "regression_test": "Verify named mounts; create unique content marker; fingerprint site UUID and post identities; recreate both containers; compare mounts, IDs and data; verify routing; remove only the test marker.",
+  "limitations": "Selected stable database records and one content marker only. Not full database integrity, backup/restore, host-loss recovery, Laravel persistence, authenticated browser or editorial-flow testing. Source remains staged and uncommitted.",
+  "observed_commit": "910c197d71cc8a5ae3b4171e5e35f6de9fce4c2f",
+  "scope_fingerprint": "86eacb70b275c28330335f89d9e9197ec7e9e0f85580d586a150f943d12f8338",
+  "started_at": "2026-11-24T14:06:27.485585+00:00",
+  "finished_at": "2026-11-24T14:06:55.135732+00:00",
+  "containers_before": {
+    "ghost": {
+      "container_id": "77ae7a3adb3c10fab732b2d42988210399c907b85bab6dc273197db44b137ff7",
+      "image_id": "sha256:baa6dbff91a28ba36c526d1f6e761deb2efe3c238c630c3f318b62f258c2d76e",
+      "mounts": [
+        {
+          "type": "volume",
+          "name": "umu-ghost-local_ghost-content",
+          "destination": "/var/lib/ghost/content"
+        }
+      ]
+    },
+    "ghost-db": {
+      "container_id": "71951ba312e4e0e5beca9fa0be64128f077dcffe574f022cadd4284c1eefb899",
+      "image_id": "sha256:a81d043930e51745522bd5c430961cf8286f0a23f0a9a2a6e0108f7ea71b0902",
+      "mounts": [
+        {
+          "type": "volume",
+          "name": "umu-ghost-local_publication-db",
+          "destination": "/var/lib/mysql"
+        }
+      ]
+    }
+  },
+  "containers_after": {
+    "ghost": {
+      "container_id": "594af6ffe526c5ae7aebacbb1446b0532324f75868604bc6c86d8733e5cbac77",
+      "image_id": "sha256:baa6dbff91a28ba36c526d1f6e761deb2efe3c238c630c3f318b62f258c2d76e",
+      "mounts": [
+        {
+          "type": "volume",
+          "name": "umu-ghost-local_ghost-content",
+          "destination": "/var/lib/ghost/content"
+        }
+      ]
+    },
+    "ghost-db": {
+      "container_id": "67f00d94c857b522a8347224b8dc99343576bc56bd64eda38163960fce5513c0",
+      "image_id": "sha256:a81d043930e51745522bd5c430961cf8286f0a23f0a9a2a6e0108f7ea71b0902",
+      "mounts": [
+        {
+          "type": "volume",
+          "name": "umu-ghost-local_publication-db",
+          "destination": "/var/lib/mysql"
+        }
+      ]
+    }
+  },
+  "database_fingerprint_before": "f50db4cd508e778498937bcb5156c1a4f1bb946f1f70d6f4b64173266b5ec5dc",
+  "database_fingerprint_after": "f50db4cd508e778498937bcb5156c1a4f1bb946f1f70d6f4b64173266b5ec5dc",
+  "routing_output": "PASS: / HTTP 200\nPASS: /build/assets/app-BtmlR_PZ.css HTTP 200\nPASS: /build/assets/app-rMlbYxeE.js HTTP 200\nINFO: /: 2 local assets checked; 0 external references not fetched\nPASS: /community HTTP 200\nPASS: /build/assets/app-BtmlR_PZ.css HTTP 200\nPASS: /build/assets/app-rMlbYxeE.js HTTP 200\nINFO: /community: 2 local assets checked; 0 external references not fetched\nPASS: /health HTTP 200\nPASS: /account HTTP 302\nPASS: anonymous account access redirects to local home\nPASS: /auth/google HTTP 404\nPASS: /auth/google/callback HTTP 404\nPASS: /admin HTTP 404\nPASS: /admin/login HTTP 404\nPASS: /login HTTP 404\nPASS: /register HTTP 404\nPASS: /ai HTTP 404\nPASS: /news HTTP 308\nPASS: /news redirect preserves the configured hostname, port and prefix\nPASS: /news/ HTTP 200\nINFO: external asset not fetched: https://cdn.jsdelivr.net/ghost/portal@~2.72/umd/portal.min.js\nINFO: external asset not fetched: https://cdn.jsdelivr.net/ghost/sodo-search@~1.9/umd/sodo-search.min.js\nPASS: /news/assets/built/screen.css?v=xPGozQS2SFMZDlmQ HTTP 200\nPASS: /news/assets/built/source.js?v=33sa4-qy5thAFPQH HTTP 200\nPASS: /news/public/cards.min.css?v=WwnU9jw5ancNC8Gc HTTP 200\nPASS: /news/public/cards.min.js?v=mLGdiz8Ij-Hk3ydN HTTP 200\nPASS: /news/public/comment-counts.min.js?v=oFYkaGLdiMqB8VN9 HTTP 200\nPASS: /news/public/member-attribution.min.js?v=AKG4hWena9j3yX3I HTTP 200\nINFO: /news/: 6 local assets checked; 2 external references not fetched\nPASS: /news/ghost/ HTTP 200\nPASS: /news/ghost/assets/index-BU7zf8AS.js HTTP 200\nPASS: /news/ghost/assets/index-DfpBgJrs.css HTTP 200\nINFO: /news/ghost/: 2 local assets checked; 0 external references not fetched\n\nPASS: initial routing and first-level local asset checks\nLIMITS: no browser execution, nested CSS/module imports, external assets, authenticated-session checks, outage test or persistence test in this run\n"
+}

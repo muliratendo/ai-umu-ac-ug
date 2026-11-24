@@ -1,0 +1,28 @@
+{
+  "scope": "g4-ghost-local positive routing checks against the configured 64-file scope and current local running stack.",
+  "cause": "Validate the staged Ghost publishing stack through its local proxy.",
+  "decision": "Accept this successful run as positive routing evidence only. No overall task completion, policy approval or production approval.",
+  "result": "pass",
+  "observed_result": "PASS: / HTTP 200\nPASS: /build/assets/app-BtmlR_PZ.css HTTP 200\nPASS: /build/assets/app-rMlbYxeE.js HTTP 200\nINFO: /: 2 local assets checked; 0 external references not fetched\nPASS: /community HTTP 200\nPASS: /build/assets/app-BtmlR_PZ.css HTTP 200\nPASS: /build/assets/app-rMlbYxeE.js HTTP 200\nINFO: /community: 2 local assets checked; 0 external references not fetched\nPASS: /health HTTP 200\nPASS: /account HTTP 302\nPASS: anonymous account access redirects to local home\nPASS: /auth/google HTTP 404\nPASS: /auth/google/callback HTTP 404\nPASS: /admin HTTP 404\nPASS: /admin/login HTTP 404\nPASS: /login HTTP 404\nPASS: /register HTTP 404\nPASS: /ai HTTP 404\nPASS: /news HTTP 308\nPASS: /news redirect preserves the configured hostname, port and prefix\nPASS: /news/ HTTP 200\nINFO: external asset not fetched: https://cdn.jsdelivr.net/ghost/portal@~2.72/umd/portal.min.js\nINFO: external asset not fetched: https://cdn.jsdelivr.net/ghost/sodo-search@~1.9/umd/sodo-search.min.js\nPASS: /news/assets/built/screen.css?v=xPGozQS2SFMZDlmQ HTTP 200\nPASS: /news/assets/built/source.js?v=33sa4-qy5thAFPQH HTTP 200\nPASS: /news/public/cards.min.css?v=WwnU9jw5ancNC8Gc HTTP 200\nPASS: /news/public/cards.min.js?v=mLGdiz8Ij-Hk3ydN HTTP 200\nPASS: /news/public/comment-counts.min.js?v=oFYkaGLdiMqB8VN9 HTTP 200\nPASS: /news/public/member-attribution.min.js?v=AKG4hWena9j3yX3I HTTP 200\nINFO: /news/: 6 local assets checked; 2 external references not fetched\nPASS: /news/ghost/ HTTP 200\nPASS: /news/ghost/assets/index-BU7zf8AS.js HTTP 200\nPASS: /news/ghost/assets/index-DfpBgJrs.css HTTP 200\nINFO: /news/ghost/: 2 local assets checked; 0 external references not fetched\n\nPASS: initial routing and first-level local asset checks\nLIMITS: no browser execution, nested CSS/module imports, external assets, authenticated-session checks, outage test or persistence test in this run",
+  "regression_test": "python3 -B infra/local/ghost/check_routes.py",
+  "limitations": "Implementation is staged but uncommitted. Checks cover GET responses, selected redirects and first-level local CSS/JS availability. No browser execution, nested asset imports, external CDN fetches, authenticated sessions, editorial/member/newsletter flows, outage or persistence testing in this run. Portal and Sodo Search external references remain unverified. Image IDs are recorded, not pinned. The source fingerprint does not capture all runtime state.",
+  "observed_commit": "910c197d71cc8a5ae3b4171e5e35f6de9fce4c2f",
+  "scope_fingerprint": "86eacb70b275c28330335f89d9e9197ec7e9e0f85580d586a150f943d12f8338",
+  "started_at": "2026-11-24T13:49:23.833195+00:00",
+  "finished_at": "2026-11-24T13:49:31.493522+00:00",
+  "command": [
+    "/usr/bin/python3",
+    "-B",
+    "infra/local/ghost/check_routes.py"
+  ],
+  "exit_code": 0,
+  "stderr": "",
+  "running_images": {
+    "proxy": "nginx:1.28-alpine sha256:a8b39bd9cf0f83869a2162827a0caf6137ddf759d50a171451b335cecc87d236",
+    "laravel": "sail-8.4/app sha256:002c3ee0d3648f1cd49e5ee01579382d0e783c285f425c1018a3026ab9713a3c",
+    "laravel-db": "mysql:8.4 sha256:a81d043930e51745522bd5c430961cf8286f0a23f0a9a2a6e0108f7ea71b0902",
+    "ghost": "ghost:6-alpine sha256:baa6dbff91a28ba36c526d1f6e761deb2efe3c238c630c3f318b62f258c2d76e",
+    "ghost-db": "mysql:8.4 sha256:a81d043930e51745522bd5c430961cf8286f0a23f0a9a2a6e0108f7ea71b0902",
+    "mailpit": "axllent/mailpit:v1.27 sha256:e22dce5b36f93c77082e204a3942fb6b283b7896e057458400a4c88344c3df68"
+  }
+}

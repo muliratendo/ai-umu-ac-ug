@@ -1,0 +1,58 @@
+{
+  "scope": "g4-ghost-local regression checks: verifier unit tests, frontend typecheck/tests/production build, manifest validation and live routing.",
+  "cause": "Check selected existing behavior after local Ghost integration.",
+  "decision": "Accept these executed checks as regression evidence only. No overall task decision, policy approval or production approval.",
+  "result": "pass",
+  "observed_result": "All listed commands exited successfully; the production manifest contains resources/js/app.jsx; the scoped fingerprint remained unchanged.",
+  "regression_test": "tests/maintenance/test_gates_v2.py; npm run typecheck; npm run test; npm run build; infra/local/ghost/check_routes.py",
+  "limitations": "No PHP feature/database tests, authenticated-session testing, browser execution, nested asset-import validation, external CDN checks, editorial/member/newsletter flows or persistence test in this run. Build output was regenerated but is not fully represented by the source fingerprint. Source remains staged and uncommitted. This is selected regression coverage, not the complete project test suite.",
+  "observed_commit": "910c197d71cc8a5ae3b4171e5e35f6de9fce4c2f",
+  "scope_fingerprint": "86eacb70b275c28330335f89d9e9197ec7e9e0f85580d586a150f943d12f8338",
+  "started_at": "2026-11-24T14:01:50.864640+00:00",
+  "finished_at": "2026-11-24T14:02:09.032009+00:00",
+  "node_image_id": "sha256:170fab707454b1350981adcdc2f536ec21f24d06d7f008e8d40064afeacb8a94",
+  "runs": [
+    {
+      "command": [
+        "/usr/bin/python3",
+        "-B",
+        "tests/maintenance/test_gates_v2.py"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ".........\n----------------------------------------------------------------------\nRan 9 tests in 2.310s\n\nOK\n"
+    },
+    {
+      "command": [
+        "docker",
+        "run",
+        "--rm",
+        "--user",
+        "1000:1000",
+        "--env",
+        "HOME=/tmp",
+        "--mount",
+        "type=bind,src=/home/tendo_mulira/projects/ai-umu-ghost-local/apps/platform,dst=/app",
+        "--workdir",
+        "/app",
+        "node:22-bookworm-slim",
+        "sh",
+        "-lc",
+        "npm run typecheck && npm run test && npm run build"
+      ],
+      "exit_code": 0,
+      "stdout": "\n> typecheck\n> tsc --noEmit\n\n\n> test\n> vitest run\n\n\n\u001b[1m\u001b[30m\u001b[46m RUN \u001b[49m\u001b[39m\u001b[22m \u001b[36mv5.1.0 \u001b[39m\u001b[90m/app\u001b[39m\n\n \u001b[32m✓\u001b[39m tests/frontend/auth-outcomes.acceptance.test.jsx \u001b[2m(\u001b[22m\u001b[2m15 tests\u001b[22m\u001b[2m)\u001b[22m\u001b[33m 388\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m tests/frontend/pages.test.jsx \u001b[2m(\u001b[22m\u001b[2m23 tests\u001b[22m\u001b[2m)\u001b[22m\u001b[33m 817\u001b[2mms\u001b[22m\u001b[39m\n\n\u001b[2m Test Files \u001b[22m \u001b[1m\u001b[32m2 passed\u001b[39m\u001b[22m\u001b[90m (2)\u001b[39m\n\u001b[2m      Tests \u001b[22m \u001b[1m\u001b[32m38 passed\u001b[39m\u001b[22m\u001b[90m (38)\u001b[39m\n\u001b[2m   Start at \u001b[22m 14:01:56\n\u001b[2m   Duration \u001b[22m 3.53s\u001b[2m (environment 52%, tests 21%, setup 14%, import 8%, transform 4%)\u001b[22m\n\n\n> build\n> vite build\n\nvite v8.3.7 building client environment for production...\ntransforming...\n✓ 587 modules transformed.\nrendering chunks...\ncomputing gzip size...\npublic/build/manifest.json              0.38 kB │ gzip:   0.17 kB\npublic/build/assets/app-BtmlR_PZ.css   50.74 kB │ gzip:  12.45 kB\npublic/build/assets/app-rMlbYxeE.js   378.10 kB │ gzip: 116.10 kB\n\n✓ built in 1.43s\n",
+      "stderr": "npm notice\nnpm notice New major version of npm available! 10.9.9 -> 12.2.3\nnpm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.3\nnpm notice To update run: npm install -g npm@12.2.3\nnpm notice\nNot implemented: HTMLCanvasElement's getContext() method: without installing the @napi-rs/canvas npm package\nNot implemented: HTMLCanvasElement's getContext() method: without installing the @napi-rs/canvas npm package\nNot implemented: HTMLCanvasElement's getContext() method: without installing the @napi-rs/canvas npm package\nNot implemented: HTMLCanvasElement's getContext() method: without installing the @napi-rs/canvas npm package\n"
+    },
+    {
+      "command": [
+        "/usr/bin/python3",
+        "-B",
+        "infra/local/ghost/check_routes.py"
+      ],
+      "exit_code": 0,
+      "stdout": "PASS: / HTTP 200\nPASS: /build/assets/app-BtmlR_PZ.css HTTP 200\nPASS: /build/assets/app-rMlbYxeE.js HTTP 200\nINFO: /: 2 local assets checked; 0 external references not fetched\nPASS: /community HTTP 200\nPASS: /build/assets/app-BtmlR_PZ.css HTTP 200\nPASS: /build/assets/app-rMlbYxeE.js HTTP 200\nINFO: /community: 2 local assets checked; 0 external references not fetched\nPASS: /health HTTP 200\nPASS: /account HTTP 302\nPASS: anonymous account access redirects to local home\nPASS: /auth/google HTTP 404\nPASS: /auth/google/callback HTTP 404\nPASS: /admin HTTP 404\nPASS: /admin/login HTTP 404\nPASS: /login HTTP 404\nPASS: /register HTTP 404\nPASS: /ai HTTP 404\nPASS: /news HTTP 308\nPASS: /news redirect preserves the configured hostname, port and prefix\nPASS: /news/ HTTP 200\nINFO: external asset not fetched: https://cdn.jsdelivr.net/ghost/portal@~2.72/umd/portal.min.js\nINFO: external asset not fetched: https://cdn.jsdelivr.net/ghost/sodo-search@~1.9/umd/sodo-search.min.js\nPASS: /news/assets/built/screen.css?v=xPGozQS2SFMZDlmQ HTTP 200\nPASS: /news/assets/built/source.js?v=33sa4-qy5thAFPQH HTTP 200\nPASS: /news/public/cards.min.css?v=WwnU9jw5ancNC8Gc HTTP 200\nPASS: /news/public/cards.min.js?v=mLGdiz8Ij-Hk3ydN HTTP 200\nPASS: /news/public/comment-counts.min.js?v=oFYkaGLdiMqB8VN9 HTTP 200\nPASS: /news/public/member-attribution.min.js?v=AKG4hWena9j3yX3I HTTP 200\nINFO: /news/: 6 local assets checked; 2 external references not fetched\nPASS: /news/ghost/ HTTP 200\nPASS: /news/ghost/assets/index-BU7zf8AS.js HTTP 200\nPASS: /news/ghost/assets/index-DfpBgJrs.css HTTP 200\nINFO: /news/ghost/: 2 local assets checked; 0 external references not fetched\n\nPASS: initial routing and first-level local asset checks\nLIMITS: no browser execution, nested CSS/module imports, external assets, authenticated-session checks, outage test or persistence test in this run\n",
+      "stderr": ""
+    }
+  ]
+}
