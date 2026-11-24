@@ -62,6 +62,32 @@ class GateTests(unittest.TestCase):
     def report(self):
         return (self.root / REPORT).read_text()
 
+    def test_ghost_tasks_replace_planned_twill_and_news_tasks(self):
+        self.cli("init")
+        report = self.report()
+        for gate, task in (
+            (4, "g4-ghost-local"),
+            (5, "g5-ghost-editorial"),
+        ):
+            with self.subTest(task=task):
+                self.assertIn(f"Gate {gate}: `{task}` — PENDING", report)
+                self.cli("--task", task, "--help")
+        for retired in ("g4-twill", "g5-news"):
+            self.assertNotIn(f"`{retired}`", report)
+
+    def test_retired_publishing_task_ids_are_rejected_without_state_changes(self):
+        self.cli("init")
+        before = (self.root / STATE).read_bytes()
+        for task in ("g4-twill", "g5-news"):
+            with self.subTest(task=task):
+                self.cli(
+                    "record", "--task", task, "--kind", "negative",
+                    "--result", "pass", "--by", "fixture",
+                    "--evidence", EVIDENCE, code=2,
+                )
+                self.assertEqual((self.root / STATE).read_bytes(), before)
+        self.cli("check")
+
     def test_invalid_state_is_never_overwritten(self):
         for content, diagnostic in (
             ("", "GATE_STATE_EMPTY"),

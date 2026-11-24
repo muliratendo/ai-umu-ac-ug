@@ -7,8 +7,8 @@
 | 1 | Complete current SSO and CI verification | COMPLETE |
 | 2 | Approve separate administrative grants, grant/revoke authority, publishing and audit policy | AWAITING_APPROVAL |
 | 3 | Test protected reads and writes with Twill disabled | COMPLETE |
-| 4 | Enable and test Twill locally only | BLOCKED |
-| 5 | Deliver the draft, publish and unpublish news workflow | BLOCKED |
+| 4 | Run Ghost locally under /news/ and verify service isolation | BLOCKED |
+| 5 | Verify Ghost editorial, member and test newsletter flows | BLOCKED |
 | 6 | Separately approve and implement leadership content | BLOCKED |
 | 7 | Integrate Manus; then complete browser and accessibility acceptance | BLOCKED |
 | 8 | Verify security safeguards, monitoring and rollback | BLOCKED |
@@ -23,8 +23,8 @@
 - [x] Gate 1: `g1-disable` — COMPLETE; requires positive, negative, regression, decision.
 - [ ] Gate 2: `g2-policy` — PENDING; requires approval, negative, decision.
 - [x] Gate 3: `g3-authorization` — COMPLETE; requires positive, negative, regression, decision.
-- [ ] Gate 4: `g4-twill` — PENDING; requires positive, negative, regression, decision.
-- [ ] Gate 5: `g5-news` — PENDING; requires positive, negative, regression, decision.
+- [ ] Gate 4: `g4-ghost-local` — PENDING; requires positive, negative, regression, decision.
+- [ ] Gate 5: `g5-ghost-editorial` — PENDING; requires positive, negative, regression, decision.
 - [ ] Gate 6: `g6-approval` — PENDING; requires approval, decision.
 - [ ] Gate 6: `g6-leadership` — PENDING; requires positive, negative, regression, decision.
 - [ ] Gate 7: `g7-designs` — PENDING; requires positive, negative, regression, decision.
@@ -68,3 +68,7 @@
 - 2026-11-19T09:43:23.702331+00:00 — g3-authorization: negative/pass; docs/evidence/g3-authorization-84a98c3-negative.json.
 - 2026-11-19T09:43:24.529116+00:00 — g3-authorization: regression/pass; docs/evidence/g3-authorization-84a98c3-regression.json.
 - 2026-11-19T09:43:25.357354+00:00 — g3-authorization: decision/pass; docs/evidence/g3-authorization-84a98c3-decision.json.
+- 2026-11-24T06:18:37.987788+00:00 — g1-ci: positive/pass; docs/evidence/g1-ci-ghost-6fca1b9-positive.json.
+- 2026-11-24T06:18:39.365812+00:00 — g1-ci: negative/pass; docs/evidence/g1-ci-ghost-6fca1b9-negative.json.
+- 2026-11-24T06:18:40.741737+00:00 — g1-ci: regression/pass; docs/evidence/g1-ci-ghost-6fca1b9-regression.json.
+- 2026-11-24T06:18:42.059384+00:00 — g1-ci: decision/pass; docs/evidence/g1-ci-ghost-6fca1b9-decision.json.
