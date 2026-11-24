@@ -1,0 +1,15 @@
+{
+  "cause": "The Ghost transition changed scoped gates_v2.py and test_gates_v2.py, invalidating the prior g1-ci fingerprint.",
+  "decision": "Revalidate g1-ci only for the tested Ghost gate-definition transition. Preserve existing SSO and authorization evidence. Gate 2 remains awaiting approval and Gates 4\u20138 receive no pass.",
+  "result": "pass",
+  "regression_test": "python3 -m unittest discover -s tests/maintenance -p 'test_*.py' -v: 23 tests passed locally. Includes Ghost task mapping and retired-ID rejection tests. Both GitHub Actions workflows also completed successfully.",
+  "limitations": "Workflow conclusions and run revision associations were checked; individual remote step logs were not independently audited. The push run directly identifies the tested branch revision. PR summaries identify the same head but the exact synthetic merge-checkout SHA was not retrieved. No Ghost runtime, newsletter delivery, production deployment, or policy approval was validated. Gate maintenance reported a non-failing Node.js action-runtime deprecation warning.",
+  "tested_revision": "6fca1b9b21462648294af7d40e8032778be45354",
+  "ci_runs": {
+    "foundation_push": "https://github.com/muliratendo/ai-umu-ac-ug/actions/runs/45337645700",
+    "foundation_pull_request": "https://github.com/muliratendo/ai-umu-ac-ug/actions/runs/45338268650",
+    "gate_maintenance_pull_request": "https://github.com/muliratendo/ai-umu-ac-ug/actions/runs/45338268572"
+  },
+  "scope": "g1-ci negative revalidation for the Ghost gate transition",
+  "observed_result": "The local maintenance suite passed all 23 tests. Negative cases included rejection of retired publishing task IDs without ledger mutation, invalid ledger state, mismatched evidence results, manual document drift, and unsafe MySQL-wrapper targets. Gate maintenance succeeded with the committed regression tests."
+}

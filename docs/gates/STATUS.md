@@ -4,9 +4,9 @@
 
 | Gate | Work | Status |
 |---|---|---|
-| 1 | Complete current SSO and CI verification | IN_PROGRESS |
+| 1 | Complete current SSO and CI verification | COMPLETE |
 | 2 | Approve separate administrative grants, grant/revoke authority, publishing and audit policy | AWAITING_APPROVAL |
-| 3 | Test protected reads and writes with Twill disabled | BLOCKED |
+| 3 | Test protected reads and writes with Twill disabled | COMPLETE |
 | 4 | Run Ghost locally under /news/ and verify service isolation | BLOCKED |
 | 5 | Verify Ghost editorial, member and test newsletter flows | BLOCKED |
 | 6 | Separately approve and implement leadership content | BLOCKED |
@@ -17,7 +17,7 @@
 
 ## Tasks
 
-- [ ] Gate 1: `g1-ci` — REVALIDATION_REQUIRED; requires positive, negative, regression, decision.
+- [x] Gate 1: `g1-ci` — COMPLETE; requires positive, negative, regression, decision.
 - [x] Gate 1: `g1-signin` — COMPLETE; requires positive, negative, regression, decision.
 - [x] Gate 1: `g1-revoke` — COMPLETE; requires positive, negative, regression, decision.
 - [x] Gate 1: `g1-disable` — COMPLETE; requires positive, negative, regression, decision.
@@ -68,3 +68,7 @@
 - 2026-11-19T09:43:23.702331+00:00 — g3-authorization: negative/pass; docs/evidence/g3-authorization-84a98c3-negative.json.
 - 2026-11-19T09:43:24.529116+00:00 — g3-authorization: regression/pass; docs/evidence/g3-authorization-84a98c3-regression.json.
 - 2026-11-19T09:43:25.357354+00:00 — g3-authorization: decision/pass; docs/evidence/g3-authorization-84a98c3-decision.json.
+- 2026-11-24T06:18:37.987788+00:00 — g1-ci: positive/pass; docs/evidence/g1-ci-ghost-6fca1b9-positive.json.
+- 2026-11-24T06:18:39.365812+00:00 — g1-ci: negative/pass; docs/evidence/g1-ci-ghost-6fca1b9-negative.json.
+- 2026-11-24T06:18:40.741737+00:00 — g1-ci: regression/pass; docs/evidence/g1-ci-ghost-6fca1b9-regression.json.
+- 2026-11-24T06:18:42.059384+00:00 — g1-ci: decision/pass; docs/evidence/g1-ci-ghost-6fca1b9-decision.json.
