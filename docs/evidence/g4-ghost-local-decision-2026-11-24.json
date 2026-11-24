@@ -1,0 +1,193 @@
+{
+  "scope": "Technical acceptance of g4-ghost-local for the reviewed local synthetic stack only: proxy routing, selected local assets, application outage isolation, selected regressions and Ghost persistence.",
+  "cause": "Review the current implementation against ADR 0004 local deployment and acceptance requirements and the four captured evidence records.",
+  "decision": "PASS the local technical task only. Do not change Gate 2 approval status or treat this as production, publishing-authority, real-user data or live-newsletter approval. Gate prerequisites remain enforced.",
+  "result": "pass",
+  "observed_result": "Reviewed configuration publishes only the loopback proxy port, uses separate community/publication databases and credentials, configures the /news/ canonical URL, and directs local email to logging/Mailpit. Positive routing and assets passed. Controlled application outages preserved selected routes of the other application. Nine verifier tests, 38 frontend tests, type checking and production build passed. Ghost content marker and selected database identities survived replacement of Ghost and its database containers; routing recovered. Supporting evidence snapshots and hashes are embedded.",
+  "regression_test": "See embedded regression, outage and persistence evidence for executed commands, outputs, container identities and documented limitations.",
+  "limitations": "Local synthetic stack only; staged source is not yet committed. Known literal database credentials are development-only. Images are tagged rather than digest-pinned; the source fingerprint does not capture all runtime state. No authenticated editorial/member/newsletter acceptance, browser execution, nested asset-import or external CDN validation. No full database-integrity, backup/restore, host-loss or production operational acceptance. Proxy and host remain shared failure points. Same-origin applications are not a browser-origin security boundary. Gates 2 and 5-8 retain their separate requirements. This command assembles a reviewed decision; it does not rerun tests.",
+  "scope_fingerprint": "86eacb70b275c28330335f89d9e9197ec7e9e0f85580d586a150f943d12f8338",
+  "observed_commit": "910c197d71cc8a5ae3b4171e5e35f6de9fce4c2f",
+  "decided_at": "2026-11-24T14:20:48.080131+00:00",
+  "supporting_evidence": {
+    "positive": {
+      "path": "docs/evidence/g4-ghost-local-positive-2026-11-24.json",
+      "sha256": "6632f9c3a0d61eb811fc592b653924bafe1abbc8e0bf314f9d9d6dd61b0beaf2",
+      "snapshot": {
+        "scope": "g4-ghost-local positive routing checks against the configured 64-file scope and current local running stack.",
+        "cause": "Validate the staged Ghost publishing stack through its local proxy.",
+        "decision": "Accept this successful run as positive routing evidence only. No overall task completion, policy approval or production approval.",
+        "result": "pass",
+        "observed_result": "PASS: / HTTP 200\nPASS: /build/assets/app-BtmlR_PZ.css HTTP 200\nPASS: /build/assets/app-rMlbYxeE.js HTTP 200\nINFO: /: 2 local assets checked; 0 external references not fetched\nPASS: /community HTTP 200\nPASS: /build/assets/app-BtmlR_PZ.css HTTP 200\nPASS: /build/assets/app-rMlbYxeE.js HTTP 200\nINFO: /community: 2 local assets checked; 0 external references not fetched\nPASS: /health HTTP 200\nPASS: /account HTTP 302\nPASS: anonymous account access redirects to local home\nPASS: /auth/google HTTP 404\nPASS: /auth/google/callback HTTP 404\nPASS: /admin HTTP 404\nPASS: /admin/login HTTP 404\nPASS: /login HTTP 404\nPASS: /register HTTP 404\nPASS: /ai HTTP 404\nPASS: /news HTTP 308\nPASS: /news redirect preserves the configured hostname, port and prefix\nPASS: /news/ HTTP 200\nINFO: external asset not fetched: https://cdn.jsdelivr.net/ghost/portal@~2.72/umd/portal.min.js\nINFO: external asset not fetched: https://cdn.jsdelivr.net/ghost/sodo-search@~1.9/umd/sodo-search.min.js\nPASS: /news/assets/built/screen.css?v=xPGozQS2SFMZDlmQ HTTP 200\nPASS: /news/assets/built/source.js?v=33sa4-qy5thAFPQH HTTP 200\nPASS: /news/public/cards.min.css?v=WwnU9jw5ancNC8Gc HTTP 200\nPASS: /news/public/cards.min.js?v=mLGdiz8Ij-Hk3ydN HTTP 200\nPASS: /news/public/comment-counts.min.js?v=oFYkaGLdiMqB8VN9 HTTP 200\nPASS: /news/public/member-attribution.min.js?v=AKG4hWena9j3yX3I HTTP 200\nINFO: /news/: 6 local assets checked; 2 external references not fetched\nPASS: /news/ghost/ HTTP 200\nPASS: /news/ghost/assets/index-BU7zf8AS.js HTTP 200\nPASS: /news/ghost/assets/index-DfpBgJrs.css HTTP 200\nINFO: /news/ghost/: 2 local assets checked; 0 external references not fetched\n\nPASS: initial routing and first-level local asset checks\nLIMITS: no browser execution, nested CSS/module imports, external assets, authenticated-session checks, outage test or persistence test in this run",
+        "regression_test": "python3 -B infra/local/ghost/check_routes.py",
+        "limitations": "Implementation is staged but uncommitted. Checks cover GET responses, selected redirects and first-level local CSS/JS availability. No browser execution, nested asset imports, external CDN fetches, authenticated sessions, editorial/member/newsletter flows, outage or persistence testing in this run. Portal and Sodo Search external references remain unverified. Image IDs are recorded, not pinned. The source fingerprint does not capture all runtime state.",
+        "observed_commit": "910c197d71cc8a5ae3b4171e5e35f6de9fce4c2f",
+        "scope_fingerprint": "86eacb70b275c28330335f89d9e9197ec7e9e0f85580d586a150f943d12f8338",
+        "started_at": "2026-11-24T13:49:23.833195+00:00",
+        "finished_at": "2026-11-24T13:49:31.493522+00:00",
+        "command": [
+          "/usr/bin/python3",
+          "-B",
+          "infra/local/ghost/check_routes.py"
+        ],
+        "exit_code": 0,
+        "stderr": "",
+        "running_images": {
+          "proxy": "nginx:1.28-alpine sha256:a8b39bd9cf0f83869a2162827a0caf6137ddf759d50a171451b335cecc87d236",
+          "laravel": "sail-8.4/app sha256:002c3ee0d3648f1cd49e5ee01579382d0e783c285f425c1018a3026ab9713a3c",
+          "laravel-db": "mysql:8.4 sha256:a81d043930e51745522bd5c430961cf8286f0a23f0a9a2a6e0108f7ea71b0902",
+          "ghost": "ghost:6-alpine sha256:baa6dbff91a28ba36c526d1f6e761deb2efe3c238c630c3f318b62f258c2d76e",
+          "ghost-db": "mysql:8.4 sha256:a81d043930e51745522bd5c430961cf8286f0a23f0a9a2a6e0108f7ea71b0902",
+          "mailpit": "axllent/mailpit:v1.27 sha256:e22dce5b36f93c77082e204a3942fb6b283b7896e057458400a4c88344c3df68"
+        }
+      }
+    },
+    "negative": {
+      "path": "docs/evidence/g4-ghost-local-negative-2026-11-24.json",
+      "sha256": "a22279cfda8b8ab69766c926722420e5848cca07ebb837fb6a47a3a325637a1b",
+      "snapshot": {
+        "scope": "g4-ghost-local deliberate application-container outages on the local stack.",
+        "cause": "Verify route ownership and availability when either application is stopped.",
+        "decision": "Accept this run as negative outage evidence only; no overall completion or approval.",
+        "result": "pass",
+        "observed_result": "=== Baseline ===\nPASS: / HTTP 200\nPASS: /build/assets/app-BtmlR_PZ.css HTTP 200\nPASS: /build/assets/app-rMlbYxeE.js HTTP 200\nINFO: /: 2 local assets checked; 0 external references not fetched\nPASS: /community HTTP 200\nPASS: /build/assets/app-BtmlR_PZ.css HTTP 200\nPASS: /build/assets/app-rMlbYxeE.js HTTP 200\nINFO: /community: 2 local assets checked; 0 external references not fetched\nPASS: /health HTTP 200\nPASS: /account HTTP 302\nPASS: anonymous account access redirects to local home\nPASS: /auth/google HTTP 404\nPASS: /auth/google/callback HTTP 404\nPASS: /admin HTTP 404\nPASS: /admin/login HTTP 404\nPASS: /login HTTP 404\nPASS: /register HTTP 404\nPASS: /ai HTTP 404\nPASS: /news HTTP 308\nPASS: /news redirect preserves the configured hostname, port and prefix\nPASS: /news/ HTTP 200\nINFO: external asset not fetched: https://cdn.jsdelivr.net/ghost/portal@~2.72/umd/portal.min.js\nINFO: external asset not fetched: https://cdn.jsdelivr.net/ghost/sodo-search@~1.9/umd/sodo-search.min.js\nPASS: /news/assets/built/screen.css?v=xPGozQS2SFMZDlmQ HTTP 200\nPASS: /news/assets/built/source.js?v=33sa4-qy5thAFPQH HTTP 200\nPASS: /news/public/cards.min.css?v=WwnU9jw5ancNC8Gc HTTP 200\nPASS: /news/public/cards.min.js?v=mLGdiz8Ij-Hk3ydN HTTP 200\nPASS: /news/public/comment-counts.min.js?v=oFYkaGLdiMqB8VN9 HTTP 200\nPASS: /news/public/member-attribution.min.js?v=AKG4hWena9j3yX3I HTTP 200\nINFO: /news/: 6 local assets checked; 2 external references not fetched\nPASS: /news/ghost/ HTTP 200\nPASS: /news/ghost/assets/index-BU7zf8AS.js HTTP 200\nPASS: /news/ghost/assets/index-DfpBgJrs.css HTTP 200\nINFO: /news/ghost/: 2 local assets checked; 0 external references not fetched\n\nPASS: initial routing and first-level local asset checks\nLIMITS: no browser execution, nested CSS/module imports, external assets, authenticated-session checks, outage test or persistence test in this run\n$ docker compose stop ghost\n Container umu-ghost-local-ghost-1 Stopping \n Container umu-ghost-local-ghost-1 Stopped \n=== Ghost stopped ===\nPASS: unavailable upstream /news/ HTTP 504\nPASS: unavailable upstream /news/ghost/ HTTP 504\nPASS: / HTTP 200\nPASS: /build/assets/app-BtmlR_PZ.css HTTP 200\nPASS: /build/assets/app-rMlbYxeE.js HTTP 200\nINFO: /: 2 local assets checked; 0 external references not fetched\nPASS: /community HTTP 200\nPASS: /build/assets/app-BtmlR_PZ.css HTTP 200\nPASS: /build/assets/app-rMlbYxeE.js HTTP 200\nINFO: /community: 2 local assets checked; 0 external references not fetched\nPASS: /health HTTP 200\nPASS: /account HTTP 302\nPASS: anonymous account access redirects to local home\nPASS: /auth/google HTTP 404\nPASS: /auth/google/callback HTTP 404\nPASS: /admin HTTP 404\nPASS: /admin/login HTTP 404\nPASS: /login HTTP 404\nPASS: /register HTTP 404\nPASS: /ai HTTP 404\n$ docker compose start ghost\n Container umu-ghost-local-ghost-db-1 Waiting \n Container umu-ghost-local-ghost-db-1 Healthy \n Container umu-ghost-local-ghost-1 Starting \n Container umu-ghost-local-ghost-1 Started \nPASS: recovery /news/ HTTP 200\n$ docker compose stop laravel\n Container umu-ghost-local-laravel-1 Stopping \n Container umu-ghost-local-laravel-1 Stopped \n=== Laravel stopped ===\nPASS: unavailable upstream / HTTP 502\nPASS: unavailable upstream /community HTTP 502\nPASS: unavailable upstream /account HTTP 502\nPASS: unavailable upstream /health HTTP 502\nPASS: /news/ HTTP 200\nINFO: external asset not fetched: https://cdn.jsdelivr.net/ghost/portal@~2.72/umd/portal.min.js\nINFO: external asset not fetched: https://cdn.jsdelivr.net/ghost/sodo-search@~1.9/umd/sodo-search.min.js\nPASS: /news/assets/built/screen.css?v=xPGozQS2SFMZDlmQ HTTP 200\nPASS: /news/assets/built/source.js?v=33sa4-qy5thAFPQH HTTP 200\nPASS: /news/public/cards.min.css?v=WwnU9jw5ancNC8Gc HTTP 200\nPASS: /news/public/cards.min.js?v=mLGdiz8Ij-Hk3ydN HTTP 200\nPASS: /news/public/comment-counts.min.js?v=oFYkaGLdiMqB8VN9 HTTP 200\nPASS: /news/public/member-attribution.min.js?v=AKG4hWena9j3yX3I HTTP 200\nINFO: /news/: 6 local assets checked; 2 external references not fetched\nPASS: /news/ghost/ HTTP 200\nPASS: /news/ghost/assets/index-BU7zf8AS.js HTTP 200\nPASS: /news/ghost/assets/index-DfpBgJrs.css HTTP 200\nINFO: /news/ghost/: 2 local assets checked; 0 external references not fetched\n$ docker compose start ghost laravel\n Container umu-ghost-local-laravel-db-1 Waiting \n Container umu-ghost-local-ghost-db-1 Waiting \n Container umu-ghost-local-laravel-db-1 Healthy \n Container umu-ghost-local-laravel-1 Starting \n Container umu-ghost-local-ghost-db-1 Healthy \n Container umu-ghost-local-laravel-1 Started \nPASS: recovery / HTTP 200\nPASS: recovery /news/ HTTP 200\n=== Final routing check after restoration ===\nPASS: / HTTP 200\nPASS: /build/assets/app-BtmlR_PZ.css HTTP 200\nPASS: /build/assets/app-rMlbYxeE.js HTTP 200\nINFO: /: 2 local assets checked; 0 external references not fetched\nPASS: /community HTTP 200\nPASS: /build/assets/app-BtmlR_PZ.css HTTP 200\nPASS: /build/assets/app-rMlbYxeE.js HTTP 200\nINFO: /community: 2 local assets checked; 0 external references not fetched\nPASS: /health HTTP 200\nPASS: /account HTTP 302\nPASS: anonymous account access redirects to local home\nPASS: /auth/google HTTP 404\nPASS: /auth/google/callback HTTP 404\nPASS: /admin HTTP 404\nPASS: /admin/login HTTP 404\nPASS: /login HTTP 404\nPASS: /register HTTP 404\nPASS: /ai HTTP 404\nPASS: /news HTTP 308\nPASS: /news redirect preserves the configured hostname, port and prefix\nPASS: /news/ HTTP 200\nINFO: external asset not fetched: https://cdn.jsdelivr.net/ghost/portal@~2.72/umd/portal.min.js\nINFO: external asset not fetched: https://cdn.jsdelivr.net/ghost/sodo-search@~1.9/umd/sodo-search.min.js\nPASS: /news/assets/built/screen.css?v=xPGozQS2SFMZDlmQ HTTP 200\nPASS: /news/assets/built/source.js?v=33sa4-qy5thAFPQH HTTP 200\nPASS: /news/public/cards.min.css?v=WwnU9jw5ancNC8Gc HTTP 200\nPASS: /news/public/cards.min.js?v=mLGdiz8Ij-Hk3ydN HTTP 200\nPASS: /news/public/comment-counts.min.js?v=oFYkaGLdiMqB8VN9 HTTP 200\nPASS: /news/public/member-attribution.min.js?v=AKG4hWena9j3yX3I HTTP 200\nINFO: /news/: 6 local assets checked; 2 external references not fetched\nPASS: /news/ghost/ HTTP 200\nPASS: /news/ghost/assets/index-BU7zf8AS.js HTTP 200\nPASS: /news/ghost/assets/index-DfpBgJrs.css HTTP 200\nINFO: /news/ghost/: 2 local assets checked; 0 external references not fetched\n\nPASS: initial routing and first-level local asset checks\nLIMITS: no browser execution, nested CSS/module imports, external assets, authenticated-session checks, outage test or persistence test in this run\n",
+        "regression_test": "Stop Ghost: check publication/Admin gateway failures and check_laravel(). Restore Ghost. Stop Laravel: check selected Laravel gateway failures and publication/Admin HTML and assets. Restore both and rerun check_routes.py.",
+        "limitations": "Controlled application-container stops only. No database, proxy, host, network-partition or resource-exhaustion fault injection. External CDN assets and authenticated browser sessions are not tested. No persistence test in this run. Source is staged and uncommitted; runtime images and other environment state are not fully covered by the source fingerprint.",
+        "observed_commit": "910c197d71cc8a5ae3b4171e5e35f6de9fce4c2f",
+        "scope_fingerprint": "86eacb70b275c28330335f89d9e9197ec7e9e0f85580d586a150f943d12f8338",
+        "started_at": "2026-11-24T13:52:27.326675+00:00",
+        "finished_at": "2026-11-24T13:53:16.543918+00:00"
+      }
+    },
+    "regression": {
+      "path": "docs/evidence/g4-ghost-local-regression-2026-11-24.json",
+      "sha256": "5d4e52df9341e06406744ff955d6732883e170ce58149867d871fa54a9120d43",
+      "snapshot": {
+        "scope": "g4-ghost-local regression checks: verifier unit tests, frontend typecheck/tests/production build, manifest validation and live routing.",
+        "cause": "Check selected existing behavior after local Ghost integration.",
+        "decision": "Accept these executed checks as regression evidence only. No overall task decision, policy approval or production approval.",
+        "result": "pass",
+        "observed_result": "All listed commands exited successfully; the production manifest contains resources/js/app.jsx; the scoped fingerprint remained unchanged.",
+        "regression_test": "tests/maintenance/test_gates_v2.py; npm run typecheck; npm run test; npm run build; infra/local/ghost/check_routes.py",
+        "limitations": "No PHP feature/database tests, authenticated-session testing, browser execution, nested asset-import validation, external CDN checks, editorial/member/newsletter flows or persistence test in this run. Build output was regenerated but is not fully represented by the source fingerprint. Source remains staged and uncommitted. This is selected regression coverage, not the complete project test suite.",
+        "observed_commit": "910c197d71cc8a5ae3b4171e5e35f6de9fce4c2f",
+        "scope_fingerprint": "86eacb70b275c28330335f89d9e9197ec7e9e0f85580d586a150f943d12f8338",
+        "started_at": "2026-11-24T14:01:50.864640+00:00",
+        "finished_at": "2026-11-24T14:02:09.032009+00:00",
+        "node_image_id": "sha256:170fab707454b1350981adcdc2f536ec21f24d06d7f008e8d40064afeacb8a94",
+        "runs": [
+          {
+            "command": [
+              "/usr/bin/python3",
+              "-B",
+              "tests/maintenance/test_gates_v2.py"
+            ],
+            "exit_code": 0,
+            "stdout": "",
+            "stderr": ".........\n----------------------------------------------------------------------\nRan 9 tests in 2.310s\n\nOK\n"
+          },
+          {
+            "command": [
+              "docker",
+              "run",
+              "--rm",
+              "--user",
+              "1000:1000",
+              "--env",
+              "HOME=/tmp",
+              "--mount",
+              "type=bind,src=/home/tendo_mulira/projects/ai-umu-ghost-local/apps/platform,dst=/app",
+              "--workdir",
+              "/app",
+              "node:22-bookworm-slim",
+              "sh",
+              "-lc",
+              "npm run typecheck && npm run test && npm run build"
+            ],
+            "exit_code": 0,
+            "stdout": "\n> typecheck\n> tsc --noEmit\n\n\n> test\n> vitest run\n\n\n\u001b[1m\u001b[30m\u001b[46m RUN \u001b[49m\u001b[39m\u001b[22m \u001b[36mv5.1.0 \u001b[39m\u001b[90m/app\u001b[39m\n\n \u001b[32m✓\u001b[39m tests/frontend/auth-outcomes.acceptance.test.jsx \u001b[2m(\u001b[22m\u001b[2m15 tests\u001b[22m\u001b[2m)\u001b[22m\u001b[33m 388\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m tests/frontend/pages.test.jsx \u001b[2m(\u001b[22m\u001b[2m23 tests\u001b[22m\u001b[2m)\u001b[22m\u001b[33m 817\u001b[2mms\u001b[22m\u001b[39m\n\n\u001b[2m Test Files \u001b[22m \u001b[1m\u001b[32m2 passed\u001b[39m\u001b[22m\u001b[90m (2)\u001b[39m\n\u001b[2m      Tests \u001b[22m \u001b[1m\u001b[32m38 passed\u001b[39m\u001b[22m\u001b[90m (38)\u001b[39m\n\u001b[2m   Start at \u001b[22m 14:01:56\n\u001b[2m   Duration \u001b[22m 3.53s\u001b[2m (environment 52%, tests 21%, setup 14%, import 8%, transform 4%)\u001b[22m\n\n\n> build\n> vite build\n\nvite v8.3.7 building client environment for production...\ntransforming...\n✓ 587 modules transformed.\nrendering chunks...\ncomputing gzip size...\npublic/build/manifest.json              0.38 kB │ gzip:   0.17 kB\npublic/build/assets/app-BtmlR_PZ.css   50.74 kB │ gzip:  12.45 kB\npublic/build/assets/app-rMlbYxeE.js   378.10 kB │ gzip: 116.10 kB\n\n✓ built in 1.43s\n",
+            "stderr": "npm notice\nnpm notice New major version of npm available! 10.9.9 -> 12.2.3\nnpm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.3\nnpm notice To update run: npm install -g npm@12.2.3\nnpm notice\nNot implemented: HTMLCanvasElement's getContext() method: without installing the @napi-rs/canvas npm package\nNot implemented: HTMLCanvasElement's getContext() method: without installing the @napi-rs/canvas npm package\nNot implemented: HTMLCanvasElement's getContext() method: without installing the @napi-rs/canvas npm package\nNot implemented: HTMLCanvasElement's getContext() method: without installing the @napi-rs/canvas npm package\n"
+          },
+          {
+            "command": [
+              "/usr/bin/python3",
+              "-B",
+              "infra/local/ghost/check_routes.py"
+            ],
+            "exit_code": 0,
+            "stdout": "PASS: / HTTP 200\nPASS: /build/assets/app-BtmlR_PZ.css HTTP 200\nPASS: /build/assets/app-rMlbYxeE.js HTTP 200\nINFO: /: 2 local assets checked; 0 external references not fetched\nPASS: /community HTTP 200\nPASS: /build/assets/app-BtmlR_PZ.css HTTP 200\nPASS: /build/assets/app-rMlbYxeE.js HTTP 200\nINFO: /community: 2 local assets checked; 0 external references not fetched\nPASS: /health HTTP 200\nPASS: /account HTTP 302\nPASS: anonymous account access redirects to local home\nPASS: /auth/google HTTP 404\nPASS: /auth/google/callback HTTP 404\nPASS: /admin HTTP 404\nPASS: /admin/login HTTP 404\nPASS: /login HTTP 404\nPASS: /register HTTP 404\nPASS: /ai HTTP 404\nPASS: /news HTTP 308\nPASS: /news redirect preserves the configured hostname, port and prefix\nPASS: /news/ HTTP 200\nINFO: external asset not fetched: https://cdn.jsdelivr.net/ghost/portal@~2.72/umd/portal.min.js\nINFO: external asset not fetched: https://cdn.jsdelivr.net/ghost/sodo-search@~1.9/umd/sodo-search.min.js\nPASS: /news/assets/built/screen.css?v=xPGozQS2SFMZDlmQ HTTP 200\nPASS: /news/assets/built/source.js?v=33sa4-qy5thAFPQH HTTP 200\nPASS: /news/public/cards.min.css?v=WwnU9jw5ancNC8Gc HTTP 200\nPASS: /news/public/cards.min.js?v=mLGdiz8Ij-Hk3ydN HTTP 200\nPASS: /news/public/comment-counts.min.js?v=oFYkaGLdiMqB8VN9 HTTP 200\nPASS: /news/public/member-attribution.min.js?v=AKG4hWena9j3yX3I HTTP 200\nINFO: /news/: 6 local assets checked; 2 external references not fetched\nPASS: /news/ghost/ HTTP 200\nPASS: /news/ghost/assets/index-BU7zf8AS.js HTTP 200\nPASS: /news/ghost/assets/index-DfpBgJrs.css HTTP 200\nINFO: /news/ghost/: 2 local assets checked; 0 external references not fetched\n\nPASS: initial routing and first-level local asset checks\nLIMITS: no browser execution, nested CSS/module imports, external assets, authenticated-session checks, outage test or persistence test in this run\n",
+            "stderr": ""
+          }
+        ]
+      }
+    },
+    "persistence": {
+      "path": "docs/evidence/g4-ghost-local-persistence-2026-11-24.json",
+      "sha256": "0744c4acfebbc62ba60e732558a1f2db33cfec1b36d416f8c95fdd1473db7aad",
+      "snapshot": {
+        "scope": "Supplementary Ghost content and database persistence evidence.",
+        "cause": "Verify persistence across replacement of Ghost and its database container.",
+        "decision": "Retain as supporting evidence; no overall task decision or approval.",
+        "result": "pass",
+        "observed_result": "Expected named content and database mounts verified.\nBoth containers replaced with the same volume mounts.\nUnique content marker survived container recreation.\nSite UUID and existing post identity fingerprint unchanged.\nPublication recovered through the proxy with HTTP 200.\nFull routing check passed after recreation.\nOnly the unique test marker was removed.",
+        "regression_test": "Verify named mounts; create unique content marker; fingerprint site UUID and post identities; recreate both containers; compare mounts, IDs and data; verify routing; remove only the test marker.",
+        "limitations": "Selected stable database records and one content marker only. Not full database integrity, backup/restore, host-loss recovery, Laravel persistence, authenticated browser or editorial-flow testing. Source remains staged and uncommitted.",
+        "observed_commit": "910c197d71cc8a5ae3b4171e5e35f6de9fce4c2f",
+        "scope_fingerprint": "86eacb70b275c28330335f89d9e9197ec7e9e0f85580d586a150f943d12f8338",
+        "started_at": "2026-11-24T14:06:27.485585+00:00",
+        "finished_at": "2026-11-24T14:06:55.135732+00:00",
+        "containers_before": {
+          "ghost": {
+            "container_id": "77ae7a3adb3c10fab732b2d42988210399c907b85bab6dc273197db44b137ff7",
+            "image_id": "sha256:baa6dbff91a28ba36c526d1f6e761deb2efe3c238c630c3f318b62f258c2d76e",
+            "mounts": [
+              {
+                "type": "volume",
+                "name": "umu-ghost-local_ghost-content",
+                "destination": "/var/lib/ghost/content"
+              }
+            ]
+          },
+          "ghost-db": {
+            "container_id": "71951ba312e4e0e5beca9fa0be64128f077dcffe574f022cadd4284c1eefb899",
+            "image_id": "sha256:a81d043930e51745522bd5c430961cf8286f0a23f0a9a2a6e0108f7ea71b0902",
+            "mounts": [
+              {
+                "type": "volume",
+                "name": "umu-ghost-local_publication-db",
+                "destination": "/var/lib/mysql"
+              }
+            ]
+          }
+        },
+        "containers_after": {
+          "ghost": {
+            "container_id": "594af6ffe526c5ae7aebacbb1446b0532324f75868604bc6c86d8733e5cbac77",
+            "image_id": "sha256:baa6dbff91a28ba36c526d1f6e761deb2efe3c238c630c3f318b62f258c2d76e",
+            "mounts": [
+              {
+                "type": "volume",
+                "name": "umu-ghost-local_ghost-content",
+                "destination": "/var/lib/ghost/content"
+              }
+            ]
+          },
+          "ghost-db": {
+            "container_id": "67f00d94c857b522a8347224b8dc99343576bc56bd64eda38163960fce5513c0",
+            "image_id": "sha256:a81d043930e51745522bd5c430961cf8286f0a23f0a9a2a6e0108f7ea71b0902",
+            "mounts": [
+              {
+                "type": "volume",
+                "name": "umu-ghost-local_publication-db",
+                "destination": "/var/lib/mysql"
+              }
+            ]
+          }
+        },
+        "database_fingerprint_before": "f50db4cd508e778498937bcb5156c1a4f1bb946f1f70d6f4b64173266b5ec5dc",
+        "database_fingerprint_after": "f50db4cd508e778498937bcb5156c1a4f1bb946f1f70d6f4b64173266b5ec5dc",
+        "routing_output": "PASS: / HTTP 200\nPASS: /build/assets/app-BtmlR_PZ.css HTTP 200\nPASS: /build/assets/app-rMlbYxeE.js HTTP 200\nINFO: /: 2 local assets checked; 0 external references not fetched\nPASS: /community HTTP 200\nPASS: /build/assets/app-BtmlR_PZ.css HTTP 200\nPASS: /build/assets/app-rMlbYxeE.js HTTP 200\nINFO: /community: 2 local assets checked; 0 external references not fetched\nPASS: /health HTTP 200\nPASS: /account HTTP 302\nPASS: anonymous account access redirects to local home\nPASS: /auth/google HTTP 404\nPASS: /auth/google/callback HTTP 404\nPASS: /admin HTTP 404\nPASS: /admin/login HTTP 404\nPASS: /login HTTP 404\nPASS: /register HTTP 404\nPASS: /ai HTTP 404\nPASS: /news HTTP 308\nPASS: /news redirect preserves the configured hostname, port and prefix\nPASS: /news/ HTTP 200\nINFO: external asset not fetched: https://cdn.jsdelivr.net/ghost/portal@~2.72/umd/portal.min.js\nINFO: external asset not fetched: https://cdn.jsdelivr.net/ghost/sodo-search@~1.9/umd/sodo-search.min.js\nPASS: /news/assets/built/screen.css?v=xPGozQS2SFMZDlmQ HTTP 200\nPASS: /news/assets/built/source.js?v=33sa4-qy5thAFPQH HTTP 200\nPASS: /news/public/cards.min.css?v=WwnU9jw5ancNC8Gc HTTP 200\nPASS: /news/public/cards.min.js?v=mLGdiz8Ij-Hk3ydN HTTP 200\nPASS: /news/public/comment-counts.min.js?v=oFYkaGLdiMqB8VN9 HTTP 200\nPASS: /news/public/member-attribution.min.js?v=AKG4hWena9j3yX3I HTTP 200\nINFO: /news/: 6 local assets checked; 2 external references not fetched\nPASS: /news/ghost/ HTTP 200\nPASS: /news/ghost/assets/index-BU7zf8AS.js HTTP 200\nPASS: /news/ghost/assets/index-DfpBgJrs.css HTTP 200\nINFO: /news/ghost/: 2 local assets checked; 0 external references not fetched\n\nPASS: initial routing and first-level local asset checks\nLIMITS: no browser execution, nested CSS/module imports, external assets, authenticated-session checks, outage test or persistence test in this run\n"
+      }
+    }
+  }
+}
