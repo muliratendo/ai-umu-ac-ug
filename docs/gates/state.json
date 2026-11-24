@@ -346,7 +346,7 @@
     }
   ],
   "view_hashes": {
-    "docs/gates/STATUS.md": "f07d85cc1333b1b92b8860b0006fd697d6404ba88274a8faaf18d1dd7b9b7e30",
-    "docs/gates/RESPONSE_STATUS.md": "8925db4d2c14af3cc0ed06579064b959074b4883bb4ed008b5a097868f1893f0"
+    "docs/gates/STATUS.md": "8ded703d29b5b52e4a6d9e88de60f239e8c1d526e7fb91641376f61ac9bbb933",
+    "docs/gates/RESPONSE_STATUS.md": "b83d7599a216ae2d7834a38b5cedb3a43d2dae31404c5bcfc8a8860660dcf553"
   }
 }
